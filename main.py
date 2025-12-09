@@ -35,18 +35,29 @@ def select_valid_action(world):
                 return int(choice)
         
 
-def to_dict(player):
+def to_dict(self):
     return {
-        "name": player.name,
-        "hp": player.hp,
-        "unlocked": player.unlocked,
-        "inventory": [item.to_dict() for item in player.inventory],
-        "equiped":  [item.to_dict() for item in player.equiped],
-        "attack": player.attack,
-        "defense": player.defense,
-        "stealth": player.stealth,
-        "wit": player.wit
+        "name": self.name,
+        "hp": self.hp,
+        "unlocked": self.unlocked,
+
+        # inventory = {name: itemobject}
+        "inventory": {
+            name: item.to_dict() for name, item in self.inventory.items()
+        },
+
+        # equipped = {slot: itemobject or None}
+        "equipped": {
+            slot: item.to_dict() if item else None
+            for slot, item in self.equipped.items()
+        },
+
+        "attack": self.attack,
+        "defense": self.defense,
+        "stealth": self.stealth,
+        "wit": self.wit
     }
+
 
 def start_script():
     # If not existing player, set new player stats and name
@@ -59,12 +70,13 @@ def start_script():
                 name = input("Choose a name: ")
                 with open("player.json") as f:
                     data = json.load(f)
-                player = Player(name, 25, {"spellbook": False}, [], [], 5, 5, 5, 5)
+                player = Player(name, 25, {"spellbook": False}, {}, {}, 5, 5, 5, 5)
                 with open("player.json", "w") as f:
                     json.dump(to_dict(player), f, indent=2)
 
             break
         
+
 
 ### GAME START
 print("Welcome to Codebound!\n")
@@ -117,8 +129,8 @@ try:
                     items = searchable.items
                     print("\nYou found: ")
                     for item in items:
-                        print("- " + item.name)
-                        world.player.inventory.append(item)
+                        print("- " + item.name.replace("_", " "))
+                        world.player.inventory[item.name] = item
                         if item.unlock_spellbook == True:
                             world.player.unlocked["spellbook"] = True
                     searchable.items = []
@@ -130,23 +142,30 @@ try:
         elif action == 3:
             print("\nYour Inventory:")
             for item in world.player.inventory:
-                print("- " + item.name.replace("_", " "))
+                print("- " + item.replace("_", " "))
             
-            print("\nYour Equiped Items:")
-            for item in world.player.equiped:
-                print("- " + item.name.replace("_", " "))
+            print("\nYour Equipped Items:")
+            for item in world.player.equipped:
+                print("- " + item.replace("_", " "))
 
-            print("\nA)Investigate an Item")
-            print("\nB)Equip an Item")
-            print("\nC)De-equip an Item")
+            print("\n1)Investigate an Item")
+            print("2)Equip an Item")
+            print("3)De-equip an Item")
 
-            choice = input("Choose an option")
-            if choice == "A":
+            choice = input("Choose an option: ")
+            if choice == "1":
                 choice = input("Choose an item to search: ").strip().lower().replace(" ", "_")
-                print(world.player.inventory[choice])
-            elif choice == "B":
+                print(world.player.inventory[choice].description)
+            elif choice == "2":
                 choice = input("Choose an item to equip: ").strip().lower().replace(" ", "_")
-            elif choice == "C":
+                world.player.equipped[choice] = world.player.inventory[choice]
+                del world.player.inventory[choice]
+                world.player.attack += world.player.equipped[choice].attack
+                world.player.defense += world.player.equipped[choice].defense
+                world.player.stealth += world.player.equipped[choice].stealth
+                world.player.wit += world.player.equipped[choice].wit
+                print(f"\nYou have equipped {choice}.\n")
+            elif choice == "3":
                 choice = input("Choose an item to de-equip: ").strip().lower().replace(" ", "_")
             
         elif action == 4:

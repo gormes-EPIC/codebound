@@ -5,6 +5,36 @@ from searchable import Searchable
 from item import Item
 from door import Door
 
+
+
+def load_player(data):
+    player = Player(
+        name=data["name"],
+        hp=data["hp"],
+        attack=data["attack"],
+        defense=data["defense"],
+        stealth=data["stealth"],
+        wit=data["wit"]
+    )
+
+    # Load inventory dict
+    player.inventory = {
+        name: Item.from_dict(item_data)
+        for name, item_data in data.get("inventory", {}).items()
+    }
+
+    # Load equipped dict
+    player.equipped = {
+        slot: Item.from_dict(item_data) if item_data else None
+        for slot, item_data in data.get("equipped", {}).items()
+    }
+
+    player.unlocked = data["unlocked"]
+
+    return player
+
+
+
 class World:
 
     def create_world(self, world_json):
@@ -40,12 +70,14 @@ class World:
                 target_name = door_info["room_id"]
                 flamable = door_info.get("flamable", False)
                 unlocked = door_info.get("unlocked", True)
+                hidden = door_info.get("hidden", False)
 
                 # Create the Door with temporary target = None
                 door = Door(
                     direction=direction,
                     flamable=flamable,
-                    unlocked=unlocked
+                    unlocked=unlocked,
+                    hidden=hidden
                 )
 
                 # Link to actual Room object
@@ -54,6 +86,7 @@ class World:
                 room.exits[direction] = door
 
         return items, searchables, rooms
+
 
     def __init__(self, filename): 
         with open(filename) as f:
@@ -71,11 +104,10 @@ class World:
 
         self.current_room = rooms[data["start_room"]]
 
-        with open("player.json") as f:
-            data = json.load(f)
-        
-        self.player =  Player(data["name"], data["hp"], data["unlocked"], data["inventory"], data["equiped"], data["attack"], data["defense"], data["stealth"], data["wit"])
+        with open("player.json", "r") as f:
+            player_data = json.load(f)
 
+        self.player = load_player(player_data)
         
     def get_value(self):
         return self.value

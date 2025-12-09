@@ -12,7 +12,7 @@ class Item:
 
     def __repr__(self):
         return f"Item({self.name})"
-    
+
     def to_dict(self):
         return {
             "name": self.name,
@@ -25,3 +25,18 @@ class Item:
             "unlock_door": self.unlock_door,
             "unlock_spellbook": self.unlock_spellbook
         }
+
+    # <<-- ADD THIS METHOD
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            name=data["name"],
+            description=data.get("description", ""),
+            attack=data.get("attack", 0),
+            defense=data.get("defense", 0),
+            stealth=data.get("stealth", 0),
+            wit=data.get("wit", 0),
+            hp=data.get("hp", 0),
+            unlock_door=data.get("unlock_door", False),
+            unlock_spellbook=data.get("unlock_spellbook", False)
+        )

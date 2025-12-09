@@ -161,13 +161,73 @@
           ]
         },
         "storeroom_stairs_0": {
-            "description":"A cramped dusty staircase decends from this level.",
+            "description":"A cramped dusty staircase ascends from this level.",
             "exits": {
+              "up":{ 
+                  "room_id":  "storeroom_stairs_1",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "east":{ 
+                  "room_id":  "wine_room",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "searchable": [
+          ]
+        },
+        "wine_room": {
+            "description":"A large dusty wine room. Barrel racks line the walls, but all are empty.",
+            "exits": {
+              "west":{ 
+                  "room_id":  "storeroom_stairs_0",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "south":{ 
+                  "room_id":  "tunnel",
+                  "flamable": true,
+                  "unlocked": true,
+                  "hidden":true
+                }
+            
+            },
+            "searchable": [
+              "barrel_rack"
+          ]
+        },
+        "tunnel": {
+            "description":"A dark, damp tunnel. The air is thick and musty. You can barely make out a faint light to the east. As you apporach, torches flank a large ornate door. You can hear a light chanting from beyond the door.",
+            "exits": {
+              "north":{ 
+                  "room_id":  "wine_room",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "east":{ 
+                  "room_id":  "summoning_chamber",
+                  "flamable": true,
+                  "unlocked": true
+                }
+
+            },
+            "searchable": [
+          ]
+        },
+        "summoning_chamber": {
+            "description":"A large circular chamber. Strange symbols are drawn on the floor in what looks like dried blood. The air is thick with the smell of sulfur and burnt incense. Three hunched figures in dark robes stand around a large stone altar in the center of the room. As the door creaks open, they stop their chanting and turn to face you. Their eyes glow with an otherworldly light.",
+            "exits": {
+              "west":{ 
+                  "room_id":  "tunnel",
+                  "flamable": true,
+                  "unlocked": true
+                }
+
             },
             "searchable": [
           ]
         }
-
   },
   "searchable": {
     "suit_of_armor": {
