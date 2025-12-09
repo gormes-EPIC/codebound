@@ -1,0 +1,25 @@
+{
+  "name": "Player 1",
+  "hp": 25,
+  "unlocked": {
+    "spellbook": false
+  },
+  "inventory": [
+    {
+      "name": "old_key",
+      "description": "A small rusty key. Use this item to unlock a door.",
+      "attack": 0,
+      "defense": 0,
+      "stealth": 0,
+      "wit": 0,
+      "hp": 0,
+      "unlock_door": "library",
+      "unlock_spellbook": false
+    }
+  ],
+  "equiped": [],
+  "attack": 5,
+  "defense": 5,
+  "stealth": 5,
+  "wit": 5
+}

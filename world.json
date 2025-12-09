@@ -1,0 +1,227 @@
+{
+  "value": -10.0,
+  "startup_text": "\nThe owners of the _ residence have recently gone missing. You have been hired to track them down. Your first stop is their abandonned manor on the edge of town.\nYou approach a strange home with cobwebs covering the porch. Curiousity overtaking you, you reach for the door handle and pull. It's ...open. After a few cautious steps inside, the door slams behind you. You pull on the door to no avail. It's locked tight. I guess there is no way out but through.",
+  "start_room": "ballroom",
+  "rooms": {
+        "entryway": {
+            "description": "You enter a dimly lit foyer. You step onto a small stained rug that covers the creaky floor boards. There is a small built-in bench to your right, next to an unused coat rack. There is a door on the wall directly in front of you.",
+            "exits": {
+                "north": { 
+                  "room_id":  "ballroom",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "searchable": []
+        },
+        "ballroom": {
+            "description": "You step into a large ballroom. Two suits of armor flank either side of the south doorway. There is a large iron chandelier above you illuniating the room in candlelight along with a few small torches hanging on the wall. There is a door on the north wall, east wall and the west wall.",
+            "exits": {
+                "north":{ 
+                  "room_id":  "north_stairs_1",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "east": { 
+                  "room_id":  "office",
+                  "flamable": true,
+                  "unlocked": true
+                }, 
+                "west": { 
+                  "room_id":  "dining_room",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "searchable": [
+                "suit_of_armor"
+            ]
+        },
+        "office": {
+            "description": "A large grand piano stands to your left. In front of you there is a large desk surrouned by a few armchairs and a small couch. A small table along the northern wall has a half-played chess game still set up.",
+            "exits": {
+                "west": { 
+                  "room_id":  "ballroom",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "south": { 
+                  "room_id":  "library",
+                  "flamable": true,
+                  "unlocked": false
+                }
+            },
+            "searchable": [
+              "desk"
+            ]
+        },
+        "north_stairs_1": {
+            "description": "A rickety staircase goes up.",
+            "exits": {
+                "south":{ 
+                  "room_id":  "ballroom",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "up": { 
+                  "room_id":  "north_stairs_2",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "searchable": []
+        },
+        "dining_room": {
+            "description":"A large dining table sits under another iron chandelier. Light drifts in from the large front-facing windows. The table's been set, but you can tell from the dust that no one has been here for a long time.",
+            "exits": {
+                "east":{ 
+                  "room_id":  "ballroom",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "north":{ 
+                  "room_id":  "kitchen",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "searchable": []
+        },
+        "library": {
+            "description":"Before you is a dusty library. There are rows of shelves filled with books and even more stacked up on the floor. There is a cozy fireplace along the back wall surrounded by a few armchairs. A small bit of sunlight driffs in through the dusty windows.",
+            "exits": {
+                "north":{ 
+                  "room_id":  "office",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "searchable": [
+              "bookshelf"
+          ]
+        },
+        "north_stairs_2": {
+            "description":"A rickety staircase goes own.",
+            "exits": {
+            },
+            "searchable": [
+          ]
+        },
+        "kitchen": {
+            "description":"A simple kitchen. The shelves are barren but there is a closed cabinet on the left wall that may contain something useful.",
+            "exits": {
+                "north":{ 
+                  "room_id":  "storeroom",
+                  "flamable": true,
+                  "unlocked": true
+                }, 
+                "south":{ 
+                  "room_id":  "dining_room",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "searchable": [
+              "cabinet"
+          ]
+        },
+        "storeroom": {
+            "description":"This once well-stocked storeroom is barren. A few items liter the shelves.",
+            "exits": {
+                "north":{ 
+                  "room_id":  "storeroom_stairs_1",
+                  "flamable": true,
+                  "unlocked": true
+                }, 
+                "south":{ 
+                  "room_id":  "kitchen",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "searchable": [
+              "shelf"
+          ]
+        },
+        "storeroom_stairs_1": {
+            "description":"A cramped dusty staircase decends from this level.",
+            "exits": {
+                "down":{ 
+                  "room_id":  "storeroom_stairs_0",
+                  "flamable": true,
+                  "unlocked": true
+                }, 
+                "east":{ 
+                  "room_id":  "storeroom",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "searchable": [
+          ]
+        },
+        "storeroom_stairs_0": {
+            "description":"A cramped dusty staircase decends from this level.",
+            "exits": {
+            },
+            "searchable": [
+          ]
+        }
+
+  },
+  "searchable": {
+    "suit_of_armor": {
+      "items": [
+        "sword",
+        "armor"
+      ]
+    }, 
+    "desk": {
+      "items": [
+        "old_key"
+      ]
+    }, 
+    "bookshelf": {
+      "items": [
+        "spellbook"
+      ]
+    },
+    "cabinet": {
+      "items": [
+        "knife"
+      ]
+    },
+    "shelf": {
+      "items": [
+        "healing_potion"
+      ]
+    }
+  },
+  "items": {
+    "sword": {
+      "description": "A small, sharp sword. Equip this item to boost your attack.",
+      "attack": 1
+    }, 
+    "armor": {
+      "description": "A squeky set of armor. Equip this item to boost your defense.",
+      "defense": 1
+    },
+    "old_key": {
+      "description": "A small rusty key. Use this item to unlock a door.",
+      "unlock_door": "library"
+    }, 
+    "spellbook":{
+      "description": "A worn blank spellbook.",
+      "unlock_spellbook": true
+    }, 
+    "knife":{
+      "description": "A simple kitchen knife. Equip to boost your attack.",
+      "attack": 1
+    }, 
+    "healing_potion":{
+      "description": "A small red vial labeled healing potion. Equip to restore HP.",
+      "hp": 5
+    }
+  }
+}
+
