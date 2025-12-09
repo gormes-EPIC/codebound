@@ -15,10 +15,7 @@ class Player:
         self.hp = hp
         self.unlocked = unlocked or {}
 
-        # INVENTORY IS NOW A DICT:  {item_name: Item}
         self.inventory = inventory or {}
-
-        # EQUIPPED IS NOW A DICT:  {slot_name: Item or None}
         self.equipped = equipped or {}
 
         self.attack = attack
@@ -49,7 +46,7 @@ class Player:
             inv[name] = item_class.from_dict(item_data)
         player.inventory = inv
 
-            # Load equipped dict
+        # Load equipped dict
         eq = {}
         for slot, item_data in data.get("equipped", {}).items():
             eq[slot] = item_class.from_dict(item_data) if item_data else None

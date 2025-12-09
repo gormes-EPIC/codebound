@@ -5,9 +5,34 @@
     "spellbook": false
   },
   "inventory": {},
-  "equipped": {},
-  "attack": 5,
-  "defense": 5,
+  "equipped": {
+    "sword": {
+      "name": "sword",
+      "description": "A small, sharp sword. Equip this item to boost your attack.",
+      "attack": 1,
+      "defense": 0,
+      "stealth": 0,
+      "wit": 0,
+      "hp": 0,
+      "unlock_door": false,
+      "unlock_spellbook": false,
+      "reveal_exit": false
+    },
+    "armor": {
+      "name": "armor",
+      "description": "A squeky set of armor. Equip this item to boost your defense.",
+      "attack": 0,
+      "defense": 1,
+      "stealth": 0,
+      "wit": 0,
+      "hp": 0,
+      "unlock_door": false,
+      "unlock_spellbook": false,
+      "reveal_exit": false
+    }
+  },
+  "attack": 6,
+  "defense": 6,
   "stealth": 5,
   "wit": 5
 }

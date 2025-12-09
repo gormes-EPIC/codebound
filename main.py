@@ -5,8 +5,19 @@ from world import World
 from player import Player
 import json
 
+# TODO: View and Modify Inventory needs some work
+# TODO: Spellcasting implementation
+# TODO: Combat implementation
+# TODO: Validate input for internal menu items
+# TODO: Finish upstairs of haunted house level
+# TODO: Add more levels!
+# TODO: Commenting and docstrings
 
 def select_valid_level():
+    '''
+    Prompt user to select a valid level.
+    Returns the selected level as an integer.
+    '''
     while True:
         print("Select a level")
         print("1) Haunted House")
@@ -17,17 +28,24 @@ def select_valid_level():
 
 
 def select_valid_action(world):
+    '''
+    Prompt user to select a valid action.
+    
+    :param world: the current game world
+    :return: the selected action as an integer
+    '''
     while True:
         print("Select an action")
         print("1) Move")
         print("2) Investigate Target")
         print("3) View and Modify Inventory")
-        print("4) Save Progress")
+        print("4) View Stats")
+        print("5) Save Progress")
 
-        valid = ["1", "2", "3", "4"]
+        valid = ["1", "2", "3", "4", "5"]
         if world.player.unlocked["spellbook"] == True: 
             print("5) Use Spell")
-            valid.append("5")
+            valid.append("6")
 
         choice = input("Which action: ")
             
@@ -36,6 +54,12 @@ def select_valid_action(world):
         
 
 def to_dict(self):
+    '''
+    Converts the Player object to a dictionary for JSON serialization.
+    
+    :param self: Player object
+    :return: dictionary representation of the Player
+    '''
     return {
         "name": self.name,
         "hp": self.hp,
@@ -60,9 +84,14 @@ def to_dict(self):
 
 
 def start_script():
+    '''
+    Start script to initialize or load player data.
+
+    :return: None
+    '''
     # If not existing player, set new player stats and name
     while True:
-        print("1) Start New Game")
+        print("1) Start New Game and Override Save")
         print("2) Load From Save")
         choice = input("Choose: ")
         if choice in ("1", "2"):
@@ -172,6 +201,9 @@ try:
                 print(world.player.inventory[choice].description)
             elif choice == "2":
                 choice = input("Choose an item to equip: ").strip().lower().replace(" ", "_")
+                if choice not in world.player.inventory:
+                    print("\nYou don't have that item in your inventory.\n")
+                    continue
                 world.player.equipped[choice] = world.player.inventory[choice]
                 del world.player.inventory[choice]
                 world.player.attack += world.player.equipped[choice].attack
@@ -181,8 +213,26 @@ try:
                 print(f"\nYou have equipped {choice}.\n")
             elif choice == "3":
                 choice = input("Choose an item to de-equip: ").strip().lower().replace(" ", "_")
+                if choice not in world.player.equipped:
+                    print("\nYou don't have that item equipped.\n")
+                    continue
+                world.player.inventory[choice] = world.player.equipped[choice]
+                world.player.attack -= world.player.equipped[choice].attack
+                world.player.defense -= world.player.equipped[choice].defense
+                world.player.stealth -= world.player.equipped[choice].stealth
+                world.player.wit -= world.player.equipped[choice].wit
+                del world.player.equipped[choice]
+                print(f"\nYou have de-equipped {choice}.\n")
             
         elif action == 4:
+            print(f"\nPlayer Stats for {world.player.name}:")
+            print(f"HP: {world.player.hp}")
+            print(f"Attack: {world.player.attack}")
+            print(f"Defense: {world.player.defense}")
+            print(f"Stealth: {world.player.stealth}")
+            print(f"Wit: {world.player.wit}\n")
+
+        elif action == 5:
             with open("player.json", "w") as f:
                         json.dump(to_dict(world.player), f, indent=2)
 
@@ -198,4 +248,4 @@ try:
             CalculatorInterpreter(world).run(ast)
 
 except (KeyboardInterrupt, EOFError):
-    print("Quitting Codebound")
+    print("\nQuitting Codebound")
