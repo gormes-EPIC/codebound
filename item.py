@@ -9,6 +9,7 @@ class Item:
         self.hp = kwargs.get("hp", 0)
         self.unlock_door = kwargs.get("unlock_door", False)
         self.unlock_spellbook = kwargs.get("unlock_spellbook", False)
+        self.reveal_exit = kwargs.get("reveal_exit", False)
 
     def __repr__(self):
         return f"Item({self.name})"
@@ -23,10 +24,10 @@ class Item:
             "wit": self.wit,
             "hp": self.hp,
             "unlock_door": self.unlock_door,
-            "unlock_spellbook": self.unlock_spellbook
+            "unlock_spellbook": self.unlock_spellbook,
+            "reveal_exit": self.reveal_exit
         }
 
-    # <<-- ADD THIS METHOD
     @classmethod
     def from_dict(cls, data):
         return cls(
@@ -38,5 +39,6 @@ class Item:
             wit=data.get("wit", 0),
             hp=data.get("hp", 0),
             unlock_door=data.get("unlock_door", False),
-            unlock_spellbook=data.get("unlock_spellbook", False)
+            unlock_spellbook=data.get("unlock_spellbook", False),
+            reveal_exit=data.get("reveal_exit", False)
         )

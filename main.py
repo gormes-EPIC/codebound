@@ -100,22 +100,36 @@ try:
         if action == 1:
             print("\nChoose an exit:")
             for exits in world.current_room.exits:
-                print("- Go " + exits)
+                if world.current_room.exits[exits].hidden == False:
+                    print("- Go " + exits)
+                else:
+                    for item in world.player.inventory:
+                        if  world.player.inventory[item].reveal_exit == world.current_room.exits[exits].room.name:
+                            print("You use your parchment to reveal a door.")
+                            print("- Go " + exits)
+                            world.current_room.exits[exits].hidden = False
+                            break
             direction = input("Choose a direction: ").strip().lower()
             if direction in world.current_room.exits:
-                if world.current_room.exits[direction].unlocked:
+                if world.current_room.exits[direction].unlocked and world.current_room.exits[direction].hidden == False:
                     world.current_room = world.current_room.exits[direction].room
-                else:
+                elif world.current_room.exits[direction].hidden == True:
+                    print("\nYou can't go that way.")
+                elif world.current_room.exits[direction].unlocked == False:
                     unlocked = False
                     for item in world.player.inventory:
-                        if item.unlock_door == world.current_room.exits[direction].room.name:
+                        if world.player.inventory[item].unlock_door == world.current_room.exits[direction].room.name:
                             print("\nYou use the key to unlock the door.")
                             world.current_room.exits[direction].unlocked = True
                             world.current_room = world.current_room.exits[direction].room
                             unlocked = True
                             break
                     if unlocked == False:
-                        print("\nThe door is locked")
+                        print("\nThe door is locked.")
+                else:
+                    print("\nYou can't go that way.")
+            else:
+                print("\nYou can't go that way.")
 
         elif action == 2:
             # print("\nChoose an item:")
