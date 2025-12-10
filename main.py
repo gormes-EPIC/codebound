@@ -242,7 +242,6 @@ try:
 
         print("\n" +  world.current_room.description + "\n")
 
-        print(world.current_room.enemies)
         if world.current_room.enemies != {}:
             print(world.current_room.combat_init_text + "\n")
             combat2(world)

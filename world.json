@@ -169,7 +169,7 @@
           ]
         },
         "bedroom_1": {
-            "description":"A large bedroom with a grand four-poster bed. A large wardrobe stands against the east wall. A small vanity with a mirror is against the north wall.",
+            "description":"A large bedroom with a grand four-poster bed.",
             "exits": {
                 "south":{ 
                   "room_id":  "foyer",
@@ -181,15 +181,9 @@
                   "flamable": true,
                   "unlocked": true
                 }
-            },
-          "searchable": [
-          ]
-        },
-        "bedroom_2": {
-            "description":"A small foyer. There is a closed door on the north and south walls. Directly in front of you, you see a portrait of a family.",
-            "exits": {
-                "north":{ 
-                  "room_id":  "foyer",
+                ,
+                "east":{ 
+                  "room_id":  "closet",
                   "flamable": true,
                   "unlocked": true
                 }
@@ -197,10 +191,52 @@
           "searchable": [
           ]
         },
-        "bathroom_1": {
-            "description":"A small foyer. There is a closed door on the north and south walls. Directly in front of you, you see a portrait of a family.",
+        "bedroom_2": {
+            "description":"...",
+            "exits": {
+                "north":{ 
+                  "room_id":  "foyer",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "west":{ 
+                  "room_id":  "bathroom_2",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
+          ]
+        },
+        "bathroom_2": {
+            "description":"...",
             "exits": {
                 "east":{ 
+                  "room_id":  "bedroom_2",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
+            "closet"
+          ]
+        },
+        "bathroom_1": {
+            "description":"...",
+            "exits": {
+                "east":{ 
+                  "room_id":  "bedroom_1",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
+          ]
+        },
+        "closet": {
+            "description":"...",
+            "exits": {
+                "west":{ 
                   "room_id":  "bedroom_1",
                   "flamable": true,
                   "unlocked": true
@@ -388,6 +424,11 @@
       "items": [
         "sigil"
       ]
+    },
+    "closet":{
+      "items": [
+        "lockpicking_kit"
+      ]
     }
   },
   "items": {
@@ -418,6 +459,10 @@
     "sigil":{
       "description": "A small sigil on a scrap of parchment. It seems to depict a doorway. When you hold it, see the outline of a hidden exit in the wine room apprear on the south wall. Use this item to reveal the hidden exit.",
       "reveal_exit": "tunnel"
+    },
+    "lockpicking_kit":{
+      "description": "A small lockpicking kit. Use this item to unlock locked doors without a key.",
+      "unlock_lockpicking": true
     }
   }
 }
