@@ -1,6 +1,7 @@
 class Item:
     def __init__(self, name, **kwargs):
         self.name = name
+        self.display_name = kwargs.get("display_name", name)
         self.description = kwargs.get("description", "")
         self.attack = kwargs.get("attack", 0)
         self.defense = kwargs.get("defense", 0)
@@ -17,6 +18,7 @@ class Item:
     def to_dict(self):
         return {
             "name": self.name,
+            "display_name": self.display_name,
             "description": self.description,
             "attack": self.attack,
             "defense": self.defense,
@@ -32,6 +34,7 @@ class Item:
     def from_dict(cls, data):
         return cls(
             name=data["name"],
+            display_name=data.get("display_name", data["name"]),
             description=data.get("description", ""),
             attack=data.get("attack", 0),
             defense=data.get("defense", 0),

@@ -1,7 +1,7 @@
 {
   "value": -10.0,
   "startup_text": "\nThe owners of the _ residence have recently gone missing. You have been hired to track them down. Your first stop is their abandonned manor on the edge of town.\nYou approach a strange home with cobwebs covering the porch. Curiousity overtaking you, you reach for the door handle and pull. It's ...open. After a few cautious steps inside, the door slams behind you. You pull on the door to no avail. It's locked tight. I guess there is no way out but through.",
-  "start_room": "north_stairs_2",
+  "start_room": "library",
   "rooms": {
         "entryway": {
             "description": "You enter a dimly lit foyer. You step onto a small stained rug that covers the creaky floor boards. There is a small built-in bench to your right, next to an unused coat rack. There is a door on the wall directly in front of you.",
@@ -135,10 +135,10 @@
                 "animated_armor": {
                   "description": "A suit of armor gleams menacingly as it moves to block your path.",
                   "hp": 3,
-                  "attack": 2,
+                  "attack": 4,
                   "defense": 5,
-                  "stealth": 0,
-                  "wit": 0
+                  "stealth": 1,
+                  "wit": 1
                 }
             }, 
           "combat_init_text": "A suit of animated armor clanks to life blocking your path!", 
@@ -234,7 +234,7 @@
           ]
         },
         "closet": {
-            "description":"...",
+            "description":"A small walk-in closet. There are a few old clothes hanging on a rack and a dusty chest in the corner.",
             "exits": {
                 "west":{ 
                   "room_id":  "bedroom_1",
@@ -243,6 +243,7 @@
                 }
             },
           "searchable": [
+            "chest"
           ]
         },
         "kitchen": {
@@ -429,40 +430,57 @@
       "items": [
         "lockpicking_kit"
       ]
+    },
+    "chest":{
+      "items": [
+        "evil_plan"
+      ]
     }
   },
   "items": {
     "sword": {
+      "display_name": "sword",
       "description": "A small, sharp sword. Equip this item to boost your attack.",
       "attack": 1
     }, 
     "armor": {
+      "display_name": "armor",
       "description": "A squeky set of armor. Equip this item to boost your defense.",
       "defense": 1
     },
     "old_key": {
+      "display_name": "old key",
       "description": "A small rusty key. Use this item to unlock a door.",
       "unlock_door": "library"
     }, 
     "spellbook":{
+      "display_name": "spellbook",
       "description": "A worn blank spellbook.",
       "unlock_spellbook": true
     }, 
     "knife":{
+      "display_name": "knife",
       "description": "A simple kitchen knife. Equip to boost your attack.",
       "attack": 1
     }, 
     "healing_potion":{
+      "display_name": "healing potion",
       "description": "A small red vial labeled healing potion. Equip to restore HP.",
       "hp": 5
     },
     "sigil":{
+      "display_name": "parchment sigil",
       "description": "A small sigil on a scrap of parchment. It seems to depict a doorway. When you hold it, see the outline of a hidden exit in the wine room apprear on the south wall. Use this item to reveal the hidden exit.",
       "reveal_exit": "tunnel"
     },
     "lockpicking_kit":{
+      "display_name": "lockpicking kit",
       "description": "A small lockpicking kit. Use this item to unlock locked doors without a key.",
       "unlock_lockpicking": true
+    },
+    "evil_plan":{
+      "display_name": "old parchment",
+      "description": "A crumpled piece of paper with an evil plan scribbled on it. It details the cultists' plan to summon a demon and wreak havoc on the nearby town. Reading this gives you insight into their motives."
     }
   }
 }
