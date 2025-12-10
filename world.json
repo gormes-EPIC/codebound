@@ -1,7 +1,7 @@
 {
   "value": -10.0,
   "startup_text": "\nThe owners of the _ residence have recently gone missing. You have been hired to track them down. Your first stop is their abandonned manor on the edge of town.\nYou approach a strange home with cobwebs covering the porch. Curiousity overtaking you, you reach for the door handle and pull. It's ...open. After a few cautious steps inside, the door slams behind you. You pull on the door to no avail. It's locked tight. I guess there is no way out but through.",
-  "start_room": "tunnel",
+  "start_room": "north_stairs_2",
   "rooms": {
         "entryway": {
             "description": "You enter a dimly lit foyer. You step onto a small stained rug that covers the creaky floor boards. There is a small built-in bench to your right, next to an unused coat rack. There is a door on the wall directly in front of you.",
@@ -103,8 +103,110 @@
         "north_stairs_2": {
             "description":"A rickety staircase goes own.",
             "exits": {
+              "down":{ 
+                  "room_id":  "north_stairs_1",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "south":{ 
+                  "room_id":  "hallway",
+                  "flamable": true,
+                  "unlocked": true
+                }
             },
             "searchable": [
+          ]
+        },
+        "hallway": {
+            "description":"A dimly lit hallway. Closed doors stand on all three walls in front of you.",
+            "exits": {
+                "north":{ 
+                  "room_id":  "north_stairs_2",
+                  "flamable": true,
+                  "unlocked": true
+                }, 
+                "east":{ 
+                  "room_id":  "foyer",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+            "enemies" : {
+                "animated_armor": {
+                  "description": "A suit of armor gleams menacingly as it moves to block your path.",
+                  "hp": 3,
+                  "attack": 2,
+                  "defense": 5,
+                  "stealth": 0,
+                  "wit": 0
+                }
+            }, 
+          "combat_init_text": "A suit of animated armor clanks to life blocking your path!", 
+            
+          "searchable": [
+          ]
+        },
+        "foyer": {
+            "description":"A small foyer. There is a closed door on the north and south walls. Directly in front of you, you see a portrait of a family.",
+            "exits": {
+                "west":{ 
+                  "room_id":  "hallway",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "north":{ 
+                  "room_id":  "bedroom_1",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "south":{ 
+                  "room_id":  "bedroom_2",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
+          ]
+        },
+        "bedroom_1": {
+            "description":"A large bedroom with a grand four-poster bed. A large wardrobe stands against the east wall. A small vanity with a mirror is against the north wall.",
+            "exits": {
+                "south":{ 
+                  "room_id":  "foyer",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "west":{ 
+                  "room_id":  "bathroom_1",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
+          ]
+        },
+        "bedroom_2": {
+            "description":"A small foyer. There is a closed door on the north and south walls. Directly in front of you, you see a portrait of a family.",
+            "exits": {
+                "north":{ 
+                  "room_id":  "foyer",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
+          ]
+        },
+        "bathroom_1": {
+            "description":"A small foyer. There is a closed door on the north and south walls. Directly in front of you, you see a portrait of a family.",
+            "exits": {
+                "east":{ 
+                  "room_id":  "bedroom_1",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
           ]
         },
         "kitchen": {
