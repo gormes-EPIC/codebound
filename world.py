@@ -4,6 +4,7 @@ from room import Room
 from searchable import Searchable
 from item import Item
 from door import Door
+from enemy import Enemy
 
 
 
@@ -62,28 +63,34 @@ class World:
             )
 
         # 4. Now create Door objects and link room exits
+        # 4. Link exits + populate enemies
         for r_name, r_props in rooms_data.items():
             room = rooms[r_name]
-            exits = r_props.get("exits", {})
 
-            for direction, door_info in exits.items():
-                target_name = door_info["room_id"]
-                flamable = door_info.get("flamable", False)
-                unlocked = door_info.get("unlocked", True)
-                hidden = door_info.get("hidden", False)
-
-                # Create the Door with temporary target = None
+            # ---------- Exits ----------
+            for direction, door_info in r_props.get("exits", {}).items():
                 door = Door(
                     direction=direction,
-                    flamable=flamable,
-                    unlocked=unlocked,
-                    hidden=hidden
+                    flamable=door_info.get("flamable", False),
+                    unlocked=door_info.get("unlocked", True),
+                    hidden=door_info.get("hidden", False)
                 )
-
-                # Link to actual Room object
-                door.room = rooms[target_name]
-
+                door.room = rooms[door_info["room_id"]]
                 room.exits[direction] = door
+
+            # ---------- Enemies ----------
+            for enemy_name, enemy_props in r_props.get("enemies", {}).items():
+                room.enemies[enemy_name] = Enemy(
+                    name=enemy_name,
+                    description=enemy_props.get("description", ""),
+                    hp=enemy_props.get("hp", 0),
+                    attack=enemy_props.get("attack", 0),
+                    defense=enemy_props.get("defense", 0),
+                    stealth=enemy_props.get("stealth", 0),
+                    wit=enemy_props.get("wit", 0)
+                )
+            room.combat_init_text = r_props.get("combat_init_text", "")
+
 
         return items, searchables, rooms
 

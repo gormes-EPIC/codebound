@@ -4,6 +4,8 @@ class Room:
         self.description = description
         self.exits = exits if exits else {}  # dictionary of direction -> Room object
         self.searchables = searchables if searchables else []  # list of Searchable objects
+        self.enemies = {}  # list of Enemy objects
+        self.combat_init_text = ""  # Text to display at the start of combat in this room
 
     def __repr__(self):
         exit_names = {dir: room.name for dir, room in self.exits.items()}

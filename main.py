@@ -4,8 +4,8 @@ from interpreter import CalculatorInterpreter
 from world import World
 from player import Player
 import json
+import random
 
-# TODO: View and Modify Inventory needs some work
 # TODO: Spellcasting implementation
 # TODO: Combat implementation
 # TODO: Validate input for internal menu items
@@ -99,12 +99,130 @@ def start_script():
                 name = input("Choose a name: ")
                 with open("player.json") as f:
                     data = json.load(f)
-                player = Player(name, 25, {"spellbook": False}, {}, {}, 5, 5, 5, 5)
+                player = Player(name, 10, {"spellbook": False}, {}, {}, 5, 5, 5, 5)
                 with open("player.json", "w") as f:
                     json.dump(to_dict(player), f, indent=2)
 
             break
-        
+
+def combat2(world):
+    print("\nCombat initiated!")
+
+    revealed = set()
+
+    advantage = {
+        "power": "speed",
+        "speed": "trick",
+        "trick": "power"
+    }
+
+    while world.current_room.enemies:
+        # Show enemy list
+        print("\nEnemies:")
+        for key, enemy in world.current_room.enemies.items():
+            print(f" - {enemy.name}")
+
+        # Player chooses enemy
+        choice = input("\nAttack which enemy? ").strip().lower().replace(" ", "_")
+        if choice not in world.current_room.enemies:
+            print("Invalid enemy.")
+            continue
+
+        enemy = world.current_room.enemies[choice]
+
+        # First-time reveal
+        if choice not in revealed:
+            print(f"\n➡ {enemy.name}: {enemy.description}")
+            revealed.add(choice)
+
+        # Player chooses attack style
+        move = ""
+        while move not in ("power", "speed", "trick"):
+            move = input("Choose attack (power/speed/trick): ").strip().lower()
+
+        enemy_move = random.choice(["power", "speed", "trick"])
+
+        # Determine outcome
+        if advantage[move] == enemy_move:
+            dmg = world.player.attack
+            print(f"\nYou win the clash! {enemy.name} takes {dmg} damage.")
+        elif move == enemy_move:
+            dmg = world.player.attack // 2
+            print(f"\nTie. {enemy.name} takes {dmg} damage.")
+        else:
+            dmg = 0
+            print("\nYou lose the clash! No damage dealt.")
+
+        enemy.hp -= dmg
+
+        # Enemy defeated
+        if enemy.hp <= 0:
+            print(f"{enemy.name} is defeated!")
+            del world.current_room.enemies[choice]
+            continue
+        else:
+            pass
+
+        # Enemy strikes back
+        retaliation = max(1, enemy.attack - world.player.defense)
+        world.player.hp -= retaliation
+        print(f"{enemy.name} hits you for {retaliation}. Your HP: {world.player.hp}")
+
+        if world.player.hp <= 0:
+            print("You have been defeated.\n")
+            exit()
+
+
+def combat(world):
+    print("Combat initiated!")
+
+    moves = {
+        "power": {"beats": "speed"},
+        "speed": {"beats": "trick"},
+        "trick": {"beats": "power"}
+    }
+
+    room = world.current_room
+    enemies = room.enemies
+
+    while enemies:
+        # Player chooses move
+        print("Choose your style (power / speed / trick):")
+        player_move = input("> ").strip().lower()
+        if player_move not in moves:
+            print("Invalid move.")
+            continue
+
+        # Choose an enemy
+        enemy_name = list(enemies.keys())[0]
+        enemy = enemies[enemy_name]
+
+        # Enemy randomly chooses move
+        import random
+        enemy_move = random.choice(list(moves.keys()))
+        print(f"{enemy_name} chooses {enemy_move}!")
+
+        # Resolve
+        if moves[player_move]["beats"] == enemy_move:
+            dmg = max(1, world.player.attack - enemy.defense)
+            enemy.hp -= dmg
+            print(f"You outmaneuver {enemy_name}! You deal {dmg} damage.")
+        elif moves[enemy_move]["beats"] == player_move:
+            dmg = max(1, enemy.attack - world.player.defense)
+            world.player.hp -= dmg
+            print(f"{enemy_name} outplays you! You take {dmg} damage.")
+        else:
+            print("Your moves clash and nothing happens!")
+
+        # Check death
+        if enemy.hp <= 0:
+            print(f"{enemy_name} is defeated!")
+            del enemies[enemy_name]
+
+        if world.player.hp <= 0:
+            print("You died.")
+            exit()
+
 
 
 ### GAME START
@@ -123,6 +241,13 @@ try:
     while True: 
 
         print("\n" +  world.current_room.description + "\n")
+
+        print(world.current_room.enemies)
+        if world.current_room.enemies != {}:
+            print(world.current_room.combat_init_text + "\n")
+            combat2(world)
+            print("\nYou have defeated all enemies in the room!\n")
+            print(world.current_room.description + "\n")
 
         action = select_valid_action(world)
 

@@ -1,7 +1,7 @@
 {
   "value": -10.0,
   "startup_text": "\nThe owners of the _ residence have recently gone missing. You have been hired to track them down. Your first stop is their abandonned manor on the edge of town.\nYou approach a strange home with cobwebs covering the porch. Curiousity overtaking you, you reach for the door handle and pull. It's ...open. After a few cautious steps inside, the door slams behind you. You pull on the door to no avail. It's locked tight. I guess there is no way out but through.",
-  "start_room": "entryway",
+  "start_room": "tunnel",
   "rooms": {
         "entryway": {
             "description": "You enter a dimly lit foyer. You step onto a small stained rug that covers the creaky floor boards. There is a small built-in bench to your right, next to an unused coat rack. There is a door on the wall directly in front of you.",
@@ -216,15 +216,41 @@
           ]
         },
         "summoning_chamber": {
-            "description":"A large circular chamber. Strange symbols are drawn on the floor in what looks like dried blood. The air is thick with the smell of sulfur and burnt incense. Three hunched figures in dark robes stand around a large stone altar in the center of the room. As the door creaks open, they stop their chanting and turn to face you. Their eyes glow with an otherworldly light.",
+            "description":"A large circular chamber. Strange symbols are drawn on the floor in what looks like dried blood. The air is thick with the smell of sulfur and burnt incense.",
             "exits": {
               "west":{ 
                   "room_id":  "tunnel",
                   "flamable": true,
                   "unlocked": true
                 }
-
             },
+              "enemies" : {
+                "cultist_1": {
+                  "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
+                  "hp": 3,
+                  "attack": 4,
+                  "defense": 2,
+                  "stealth": 0,
+                  "wit": 3
+                },
+                "cultist_2": {
+                  "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
+                  "hp": 3,
+                  "attack": 4,
+                  "defense": 2,
+                  "stealth": 0,
+                  "wit": 3
+                },
+                "cultist_3": {
+                  "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
+                  "hp": 3,
+                  "attack": 4,
+                  "defense": 2,
+                  "stealth": 0,
+                  "wit": 3
+              }
+            }, 
+            "combat_init_text": "Three cultists with bowed heads surround a center altar. The cultists turn to face you, their eyes glowing with an otherworldly light. They raise their hands, ready to attack!", 
             "searchable": [
           ]
         }

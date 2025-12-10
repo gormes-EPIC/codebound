@@ -1,6 +1,6 @@
 {
   "name": "Player 1",
-  "hp": 25,
+  "hp": 10,
   "unlocked": {
     "spellbook": false
   },
