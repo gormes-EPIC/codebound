@@ -109,12 +109,15 @@ class World:
         self.searchables = searchables
         self.rooms = rooms
 
+        self.start_room = data["start_room"]
         self.current_room = rooms[data["start_room"]]
 
         with open("player.json", "r") as f:
             player_data = json.load(f)
 
         self.player = load_player(player_data)
+
+        self.game_won = False
         
     def get_value(self):
         return self.value

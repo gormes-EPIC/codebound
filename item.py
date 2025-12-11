@@ -11,6 +11,9 @@ class Item:
         self.unlock_door = kwargs.get("unlock_door", False)
         self.unlock_spellbook = kwargs.get("unlock_spellbook", False)
         self.reveal_exit = kwargs.get("reveal_exit", False)
+        self.flamable = kwargs.get("flamable", False)
+        self.key_item = kwargs.get("key_item", False)
+        self.end_condition = kwargs.get("end_condition", False)
 
     def __repr__(self):
         return f"Item({self.name})"
@@ -27,7 +30,10 @@ class Item:
             "hp": self.hp,
             "unlock_door": self.unlock_door,
             "unlock_spellbook": self.unlock_spellbook,
-            "reveal_exit": self.reveal_exit
+            "reveal_exit": self.reveal_exit,
+            "flamable": self.flamable,
+            "key_item": self.key_item,
+            "end_condition": self.end_condition
         }
 
     @classmethod
@@ -43,5 +49,8 @@ class Item:
             hp=data.get("hp", 0),
             unlock_door=data.get("unlock_door", False),
             unlock_spellbook=data.get("unlock_spellbook", False),
-            reveal_exit=data.get("reveal_exit", False)
+            reveal_exit=data.get("reveal_exit", False),
+            flamable=data.get("flamable", False),
+            key_item=data.get("key_item", False),
+            end_condition=data.get("end_condition", False)
         )

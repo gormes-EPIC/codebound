@@ -15,8 +15,10 @@ def tokenize(text):
 
         if w.isdigit():
             tokens.append(Token("NUMBER", float(w)))
-        elif w.lower() in ("plus", "minus", "times", "divide", "report", "save", "set", "undo"):
+        elif w.lower() in ("plus", "minus", "times", "divide", "report", "save", "set", "undo", "teleport"):
             tokens.append(Token(w.upper(), w))
+        else:
+            tokens.append(Token("IDENT", w))
         
         i += 1
 

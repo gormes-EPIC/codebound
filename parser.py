@@ -7,6 +7,7 @@ from ast_nodes import ReportNode
 from ast_nodes import SaveNode
 from ast_nodes import SetNode
 from ast_nodes import UndoNode
+from ast_nodes import TeleportNode
 
 
 class Parser:
@@ -58,6 +59,11 @@ class Parser:
                 self.consume("SET")
                 amount = self.consume("NUMBER").value
                 statements.append(SetNode(amount))
+            
+            elif tok == "TELEPORT":
+                self.consume("TELEPORT")
+                location = self.consume("IDENT").value
+                statements.append(TeleportNode(location))
 
             elif tok == "REPORT":
                 self.consume("REPORT")

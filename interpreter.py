@@ -7,11 +7,11 @@ from ast_nodes import ReportNode
 from ast_nodes import SaveNode
 from ast_nodes import SetNode
 from ast_nodes import UndoNode
+from ast_nodes import TeleportNode
 
-class CalculatorInterpreter:
+class WorldInterpreter:
     def __init__(self, world):
         self.world = world
-
 
     def add_amount(self, amount):
         self.world.add(amount)
@@ -38,6 +38,17 @@ class CalculatorInterpreter:
     def undo(self):
         self.world.undo()
 
+    def teleport(self, location):
+        print("executing teleport")
+        if location.lower() in self.world.rooms:
+            self.world.current_room = self.world.rooms[location]
+            print(f"Teleported to {location}.")
+        elif location.lower() == "home":
+            self.world.current_room = self.world.rooms[self.world.start_room]
+            print(f"Teleported home to {self.world.start_room}.")
+        else:
+            print(f"Location '{location}' does not exist.")
+
     def run(self, program_node):
         for stmt in program_node.statements:
             if isinstance(stmt, PlusNode):
@@ -56,3 +67,5 @@ class CalculatorInterpreter:
                 self.save()
             elif isinstance(stmt, UndoNode):
                 self.undo()
+            elif isinstance(stmt, TeleportNode):
+                self.teleport(stmt.location)

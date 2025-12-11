@@ -1,6 +1,6 @@
 from lexer import tokenize
 from parser import Parser
-from interpreter import CalculatorInterpreter
+from interpreter import WorldInterpreter
 from world import World
 from player import Player
 import json
@@ -17,6 +17,12 @@ import random
 # TODO: Implement enemy abilities (favoring for certain attack styles)
 # TODO: Implement enemry dropping items
 # TODO: Implement puzzle rooms
+# TODO: Implement combat tutorial
+# TODO: Polish text and descriptions
+# TODO: Implement getting rid of items when you find secret doors
+# TODO: Implement more items and searchables - items to increase other stats
+# TODO: Implement sneaking past enemies
+# TODO: Implement flambable items and burning things
 
 def select_valid_level():
     '''
@@ -331,6 +337,18 @@ world.run_startup()
 try:
     while True: 
 
+        if world.game_won == True:
+            print("Congratulations! You have gathered all the necessary evidence and are able to escape!")
+            sum = 0
+            for item in world.player.inventory:
+                if world.player.inventory[item].key_item == True:
+                    sum += 1
+            for item in world.player.equipped:
+                if world.player.equipped[item].key_item == True:
+                    sum += 1
+            print(f"You have found {sum} key items during your adventure.")
+            break
+
         print("\n" +  world.current_room.description + "\n")
 
         if world.current_room.enemies != {}:
@@ -376,9 +394,9 @@ try:
                 print("\nYou can't go that way.")
 
         elif action == 2:
-            # print("\nChoose an item:")
-            # for search in world.current_room.searchables:
-            #     print("- " + search.name.replace("_", " "))
+            print("\nChoose an item:")
+            for search in world.current_room.searchables:
+                print("- " + search.name.replace("_", " "))
             choice = input("Choose an item to search: ").strip().lower().replace(" ", "_")
         
             found = False
@@ -391,6 +409,8 @@ try:
                         world.player.inventory[item.name] = item
                         if item.unlock_spellbook == True:
                             world.player.unlocked["spellbook"] = True
+                        if item.end_condition == True:
+                            world.game_won = True
                     searchable.items = []
                     found = True
                 print("")
@@ -486,14 +506,14 @@ try:
 
             print("Your game has been saved. Press CTRL-D or close the window to quit.")
 
-        elif action == 5:
+        elif action == 6:
             program = input("Input your program. Separate commands with \">\":")
             program = program.replace(">", "\n")
             print(program)
 
             tokens = tokenize(program)
             ast = Parser(tokens).parse()
-            CalculatorInterpreter(world).run(ast)
+            WorldInterpreter(world).run(ast)
 
 except (KeyboardInterrupt, EOFError):
     print("\nQuitting Codebound")

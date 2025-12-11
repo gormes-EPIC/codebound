@@ -18,6 +18,10 @@ class SetNode:
     def __init__(self, amount):
         self.amount = amount
 
+class TeleportNode:
+    def __init__(self, location):
+        self.location = location
+
 class UndoNode:
     pass
 

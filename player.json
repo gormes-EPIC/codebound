@@ -2,7 +2,7 @@
   "name": "Player 1",
   "hp": 6,
   "unlocked": {
-    "spellbook": false
+    "spellbook": true
   },
   "inventory": {
     "old_key": {
@@ -16,7 +16,10 @@
       "hp": 0,
       "unlock_door": "library",
       "unlock_spellbook": false,
-      "reveal_exit": false
+      "reveal_exit": false,
+      "flamable": false,
+      "key_item": false,
+      "end_condition": false
     },
     "evil_plan": {
       "name": "evil_plan",
@@ -29,7 +32,26 @@
       "hp": 0,
       "unlock_door": false,
       "unlock_spellbook": false,
-      "reveal_exit": false
+      "reveal_exit": false,
+      "flamable": false,
+      "key_item": false,
+      "end_condition": false
+    },
+    "spellbook": {
+      "name": "spellbook",
+      "display_name": "spellbook",
+      "description": "A worn blank spellbook.",
+      "attack": 0,
+      "defense": 0,
+      "stealth": 0,
+      "wit": 0,
+      "hp": 0,
+      "unlock_door": false,
+      "unlock_spellbook": true,
+      "reveal_exit": false,
+      "flamable": false,
+      "key_item": false,
+      "end_condition": false
     }
   },
   "equipped": {
@@ -44,7 +66,10 @@
       "hp": 0,
       "unlock_door": false,
       "unlock_spellbook": false,
-      "reveal_exit": false
+      "reveal_exit": false,
+      "flamable": false,
+      "key_item": false,
+      "end_condition": false
     },
     "armor": {
       "name": "armor",
@@ -57,7 +82,10 @@
       "hp": 0,
       "unlock_door": false,
       "unlock_spellbook": false,
-      "reveal_exit": false
+      "reveal_exit": false,
+      "flamable": false,
+      "key_item": false,
+      "end_condition": false
     }
   },
   "attack": 6,

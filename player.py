@@ -30,7 +30,7 @@ class Player:
             hp=data["hp"],
             unlocked=data.get("unlocked", {}),
 
-                # TEMP placeholders, populate after
+            # TEMP placeholders, populate after
             inventory={},
             equipped={},
 

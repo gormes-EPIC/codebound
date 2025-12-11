@@ -1,6 +1,6 @@
 {
   "value": -10.0,
-  "startup_text": "\nThe owners of the _ residence have recently gone missing. You have been hired to track them down. Your first stop is their abandonned manor on the edge of town.\nYou approach a strange home with cobwebs covering the porch. Curiousity overtaking you, you reach for the door handle and pull. It's ...open. After a few cautious steps inside, the door slams behind you. You pull on the door to no avail. It's locked tight. I guess there is no way out but through.",
+  "startup_text": "\nThe Craic family has recently gone missing. You have been hired to explore their abandonned residence for clues as to their disapperance.\n\nYou approach the strange home with cobwebs covering the porch. Despite your aprehension, you reach for the door handle and pull. It's ...open. After a few cautious steps inside, the door slams behind you. You pull on the door to no avail. It's locked tight. I guess there is no way out but through.",
   "start_room": "library",
   "rooms": {
         "entryway": {
@@ -15,7 +15,7 @@
             "searchable": []
         },
         "ballroom": {
-            "description": "You step into a large ballroom. Two suits of armor flank either side of the south doorway. There is a large iron chandelier above you illuniating the room in candlelight along with a few small torches hanging on the wall. There is a door on the north wall, east wall and the west wall.",
+            "description": "You step into a large ballroom. Two suits of armor flank either side of the south doorway. There is a large iron chandelier above you illuniating the room in candlelight. There is a door on the north wall, east wall, and the west wall.",
             "exits": {
                 "north":{ 
                   "room_id":  "north_stairs_1",
@@ -38,7 +38,7 @@
             ]
         },
         "office": {
-            "description": "A large grand piano stands to your left. In front of you there is a large desk surrouned by a few armchairs and a small couch. A small table along the northern wall has a half-played chess game still set up.",
+            "description": "A large grand piano stands against the north wall. In the center of the room, there is a large desk surrouned by a few armchairs and a small couch. A there is also a small table along the eastern wall has a half-played chess game still set up.",
             "exits": {
                 "west": { 
                   "room_id":  "ballroom",
@@ -52,7 +52,8 @@
                 }
             },
             "searchable": [
-              "desk"
+              "desk",
+              "chess_table"
             ]
         },
         "north_stairs_1": {
@@ -112,6 +113,11 @@
                   "room_id":  "hallway",
                   "flamable": true,
                   "unlocked": true
+                },
+                "west":{ 
+                  "room_id":  "bedroom_3",
+                  "flamable": true,
+                  "unlocked": true
                 }
             },
             "searchable": [
@@ -127,6 +133,16 @@
                 }, 
                 "east":{ 
                   "room_id":  "foyer",
+                  "flamable": true,
+                  "unlocked": true
+                }, 
+                "south":{ 
+                  "room_id":  "den",
+                  "flamable": true,
+                  "unlocked": true
+                }, 
+                "west":{ 
+                  "room_id":  "bathroom_3",
                   "flamable": true,
                   "unlocked": true
                 }
@@ -166,6 +182,110 @@
                 }
             },
           "searchable": [
+          ]
+        },
+        "den": {
+            "description":"...",
+            "exits": {
+                "north":{ 
+                  "room_id":  "hallway",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "east":{ 
+                  "room_id":  "laboratory",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
+          ]
+        },
+        "laboratory": {
+            "description":"...",
+            "exits": {
+                "west":{ 
+                  "room_id":  "den",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "east":{ 
+                  "room_id":  "secret_lab_stairs_2",
+                  "flamable": false,
+                  "unlocked": false
+                }
+            },
+          "searchable": [
+            "lab_table"
+          ]
+        },
+        "secret_lab_stairs_2": {
+            "description":"...",
+            "exits": {
+                "west":{ 
+                  "room_id":  "laboratory",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "down":{ 
+                  "room_id":  "secret_lab_stairs_0",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
+          ]
+        },
+        "secret_lab_stairs_0": {
+            "description":"...",
+            "exits": {
+                "up":{ 
+                  "room_id":  "secret_lab_stairs_2",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "south":{ 
+                  "room_id":  "tunnel",
+                  "flamable": true,
+                  "unlocked": true
+                }
+            },
+          "searchable": [
+          ]
+        },
+        "bathroom_3": {
+            "description":"...",
+            "exits": {
+                "west":{ 
+                  "room_id":  "hallway",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "north":{ 
+                  "room_id":  "bedroom_3",
+                  "flamable": false,
+                  "unlocked": false
+                }
+            },
+          "searchable": [
+          ]
+        },
+        "bedroom_3": {
+            "description":"...",
+            "exits": {
+                "south":{ 
+                  "room_id":  "bathroom_3",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "west":{ 
+                  "room_id":  "north_stairs_2",
+                  "flamable": false,
+                  "unlocked": false
+                }
+            },
+          "searchable": [
+            "dresser"
           ]
         },
         "bedroom_1": {
@@ -339,13 +459,18 @@
         "tunnel": {
             "description":"A dark, damp tunnel. The air is thick and musty. You can barely make out a faint light to the east. As you apporach, torches flank a large ornate door. You can hear a light chanting from beyond the door.",
             "exits": {
-              "north":{ 
+              "northeast":{ 
                   "room_id":  "wine_room",
                   "flamable": true,
                   "unlocked": true
                 },
                 "east":{ 
                   "room_id":  "summoning_chamber",
+                  "flamable": true,
+                  "unlocked": true
+                },
+                "north":{ 
+                  "room_id":  "secret_lab_stairs_0",
                   "flamable": true,
                   "unlocked": true
                 }
@@ -391,6 +516,7 @@
             }, 
             "combat_init_text": "Three cultists with bowed heads surround a center altar. The cultists turn to face you, their eyes glowing with an otherworldly light. They raise their hands, ready to attack!", 
             "searchable": [
+              "altar"
           ]
         }
   },
@@ -398,7 +524,7 @@
     "suit_of_armor": {
       "items": [
         "sword",
-        "armor"
+        "breastplate"
       ]
     }, 
     "desk": {
@@ -433,7 +559,34 @@
     },
     "chest":{
       "items": [
-        "evil_plan"
+        "diary"
+      ]
+    },
+    "dresser":{
+      "items": [
+        "note"
+      ]
+    },
+    "lab_table": {
+      "items" : [
+        "science_notes"
+      ]
+    },
+    "chess_table":{
+      "items": [
+        "chess piece",
+        "letter"
+      ]
+    },
+    "altar":{
+      "items": [
+        "evil_plan",
+        "front_door_key"
+      ]
+    },
+    "portrait":{
+      "items": [
+        "plaque"
       ]
     }
   },
@@ -443,9 +596,9 @@
       "description": "A small, sharp sword. Equip this item to boost your attack.",
       "attack": 1
     }, 
-    "armor": {
-      "display_name": "armor",
-      "description": "A squeky set of armor. Equip this item to boost your defense.",
+    "breastplate": {
+      "display_name": "breastplate",
+      "description": "A old but sturdy metal breastplate. Equip this item to boost your defense.",
       "defense": 1
     },
     "old_key": {
@@ -478,9 +631,44 @@
       "description": "A small lockpicking kit. Use this item to unlock locked doors without a key.",
       "unlock_lockpicking": true
     },
+    "diary":{
+      "display_name": "old diary",
+      "description": "A worn leather-bound diary. Its pages are yellowed with age. Lila's handwriting fills the pages, detailing her thoughts and experiences living in the Craic household. She writes about her parents' increasing stress over their financial troubles and hints at strange occurrences in the house. Her father spends long hours in his laboratory working on unknown experiments, locking the door tightly behind him."
+    },
+    "note":{
+      "display_name": "crumpled note",
+      "description": "A crumpled piece...",
+      "key_item": true
+    },
+    "science_notes":{
+      "display_name": "science notes",
+      "description": "A set of notes detailing various experiments and observations. Equip to increase your wit.",
+      "wit": 2
+    },
+    "chess piece":{
+      "display_name": "chess piece",
+      "description": "An ornate chess piece carved from ivory. Equip to boost your wit.",
+      "wit": 1
+    },
+    "letter":{
+      "display_name": "sealed letter",
+      "description": "A sealed letter addressed to the Theodore Craic. It is from a creditor demanding repayment of a large debt.",
+      "key_item": true
+    },
     "evil_plan":{
       "display_name": "old parchment",
-      "description": "A crumpled piece of paper with an evil plan scribbled on it. It details the cultists' plan to summon a demon and wreak havoc on the nearby town. Reading this gives you insight into their motives."
+      "description": "A crumpled piece of paper with an evil plan scribbled on it. It details the Theodore Craic's plan to summon a demon to solve their financial troubles.",
+      "key_item": true
+    },
+    "front_door_key":{
+      "display_name": "front door key",
+      "description": "An ornate key with intricate designs. Use this item to unlock the front door and escape the house.",
+      "end_condition": true
+    },
+    "plaque":{
+      "display_name": "family plaque",
+      "description": "A brass plaque mounted below the portrait. It lists the names Theodore, Margaret, and their two children, Lila and James.",
+      "key_item": true
     }
   }
 }
