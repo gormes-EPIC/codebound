@@ -6,8 +6,10 @@ from ast_nodes import ProgramNode
 from ast_nodes import ReportNode
 from ast_nodes import SaveNode
 from ast_nodes import SetNode
-from ast_nodes import UndoNode
+from ast_nodes import IgniteNode
 from ast_nodes import TeleportNode
+from ast_nodes import SummonNode
+from ast_nodes import MoveSummonsNode
 
 
 class Parser:
@@ -50,11 +52,7 @@ class Parser:
                 self.consume("DIVIDE")
                 amount = self.consume("NUMBER").value
                 statements.append(DivideNode(amount))
-
-            elif tok == "UNDO":
-                self.consume("UNDO")
-                statements.append(UndoNode())
-
+                
             elif tok == "SET":
                 self.consume("SET")
                 amount = self.consume("NUMBER").value
@@ -64,6 +62,22 @@ class Parser:
                 self.consume("TELEPORT")
                 location = self.consume("IDENT").value
                 statements.append(TeleportNode(location))
+            
+            elif tok == "IGNITE":
+                self.consume("IGNITE")
+                target_type = self.consume("IDENT").value
+                target = self.consume("IDENT").value
+                statements.append(IgniteNode(target_type, target))
+
+            elif tok == "SUMMON":
+                self.consume("SUMMON")
+                entity = self.consume("IDENT").value
+                statements.append(SummonNode(entity))
+        
+            elif tok == "MOVE":
+                self.consume("MOVE")
+                direction = self.consume("IDENT").value
+                statements.append(MoveSummonsNode(direction))
 
             elif tok == "REPORT":
                 self.consume("REPORT")

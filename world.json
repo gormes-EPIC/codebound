@@ -1,10 +1,10 @@
 {
   "value": -10.0,
   "startup_text": "\nThe Craic family has recently gone missing. You have been hired to explore their abandonned residence for clues as to their disapperance.\n\nYou approach the strange home with cobwebs covering the porch. Despite your aprehension, you reach for the door handle and pull. It's ...open. After a few cautious steps inside, the door slams behind you. You pull on the door to no avail. It's locked tight. I guess there is no way out but through.",
-  "start_room": "library",
+  "start_room": "entryway",
   "rooms": {
         "entryway": {
-            "description": "You enter a dimly lit foyer. You step onto a small stained rug that covers the creaky floor boards. There is a small built-in bench to your right, next to an unused coat rack. There is a door on the wall directly in front of you.",
+            "description": "A dimly lit foyer. You step onto a small stained rug that covers the creaky floor boards. There is a small built-in bench to your right, next to an unused coat rack. There is a door on the wall directly in front of you.",
             "exits": {
                 "north": { 
                   "room_id":  "ballroom",
@@ -15,7 +15,7 @@
             "searchable": []
         },
         "ballroom": {
-            "description": "You step into a large ballroom. Two suits of armor flank either side of the south doorway. There is a large iron chandelier above you illuniating the room in candlelight. There is a door on the north wall, east wall, and the west wall.",
+            "description": "You stand in a large ballroom. Two suits of armor flank either side of the south doorway. There is a large iron chandelier above you illuniating the room in candlelight. There is a door on the north wall, east wall, and the west wall.",
             "exits": {
                 "north":{ 
                   "room_id":  "north_stairs_1",

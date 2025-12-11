@@ -6,8 +6,10 @@ from ast_nodes import ProgramNode
 from ast_nodes import ReportNode
 from ast_nodes import SaveNode
 from ast_nodes import SetNode
-from ast_nodes import UndoNode
 from ast_nodes import TeleportNode
+from ast_nodes import IgniteNode
+from ast_nodes import SummonNode
+from ast_nodes import MoveSummonsNode
 
 class WorldInterpreter:
     def __init__(self, world):
@@ -29,8 +31,8 @@ class WorldInterpreter:
         self.world.set_value(amount)
 
     def report(self):
-        value = self.world.get_value()
-        print(f"Value is {value}")
+        value = self.world.summons.report
+        print(f"Report:\n {value}")
 
     def save(self):
         self.world.save()
@@ -39,15 +41,19 @@ class WorldInterpreter:
         self.world.undo()
 
     def teleport(self, location):
-        print("executing teleport")
-        if location.lower() in self.world.rooms:
-            self.world.current_room = self.world.rooms[location]
-            print(f"Teleported to {location}.")
-        elif location.lower() == "home":
-            self.world.current_room = self.world.rooms[self.world.start_room]
-            print(f"Teleported home to {self.world.start_room}.")
+        self.world.teleport(location)
+
+    def ignite(self, target_type, target):
+        self.world.ignite(target_type, target)
+    
+    def summon(self, entity):
+        self.world.summon(entity)
+
+    def move_summons(self, direction):
+        if self.world.summons:
+            self.world.summons.move(direction, self.world)
         else:
-            print(f"Location '{location}' does not exist.")
+            print("No summons to move.")
 
     def run(self, program_node):
         for stmt in program_node.statements:
@@ -65,7 +71,11 @@ class WorldInterpreter:
                 self.report()
             elif isinstance(stmt, SaveNode):
                 self.save()
-            elif isinstance(stmt, UndoNode):
-                self.undo()
             elif isinstance(stmt, TeleportNode):
                 self.teleport(stmt.location)
+            elif isinstance(stmt, IgniteNode):
+                self.ignite(stmt.target_type, stmt.target)
+            elif isinstance(stmt, SummonNode):
+                self.summon(stmt.entity)
+            elif isinstance(stmt, MoveSummonsNode):
+                self.move_summons(stmt.location)    

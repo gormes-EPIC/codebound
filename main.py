@@ -22,7 +22,8 @@ import random
 # TODO: Implement getting rid of items when you find secret doors
 # TODO: Implement more items and searchables - items to increase other stats
 # TODO: Implement sneaking past enemies
-# TODO: Implement flambable items and burning things
+# TODO: Implement list of seen rooms and you can only teleport to seen rooms
+# TODO: Implement drawing teleportation circles that you can use to teleport to certain rooms
 
 def select_valid_level():
     '''
@@ -199,6 +200,7 @@ def combat3(world):
 
         if world.player.hp <= 0:
             print("You have been defeated.")
+            tabulate(world)
             exit()
 
 
@@ -320,7 +322,16 @@ def combat(world):
             print("You died.")
             exit()
 
-
+def tabulate(world):
+    sum = 0
+    for item in world.player.inventory:
+        if world.player.inventory[item].key_item == True:
+            sum += 1
+    for item in world.player.equipped:
+        if world.player.equipped[item].key_item == True:
+            sum += 1
+    print(f"You have found {sum} key items during your adventure.")
+    exit()
 
 ### GAME START
 print("Welcome to Codebound!\n")
@@ -339,14 +350,7 @@ try:
 
         if world.game_won == True:
             print("Congratulations! You have gathered all the necessary evidence and are able to escape!")
-            sum = 0
-            for item in world.player.inventory:
-                if world.player.inventory[item].key_item == True:
-                    sum += 1
-            for item in world.player.equipped:
-                if world.player.equipped[item].key_item == True:
-                    sum += 1
-            print(f"You have found {sum} key items during your adventure.")
+            tabulate(world)
             break
 
         print("\n" +  world.current_room.description + "\n")

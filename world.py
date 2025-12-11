@@ -5,6 +5,9 @@ from searchable import Searchable
 from item import Item
 from door import Door
 from enemy import Enemy
+from creature import Bat
+from creature import Ghost
+from creature import Construct
 
 
 
@@ -118,6 +121,8 @@ class World:
         self.player = load_player(player_data)
 
         self.game_won = False
+
+        self.summons = None
         
     def get_value(self):
         return self.value
@@ -144,6 +149,52 @@ class World:
 
     def undo(self):
         self.value = self.previous
+
+    def teleport(self, location):
+        if location.lower() in self.rooms:
+            self.current_room = self.rooms[location]
+            print(f"Teleported to {location}.")
+        elif location.lower() == "home":
+            self.current_room = self.rooms[self.start_room]
+            print(f"Teleported home to {self.start_room}.")
+        else:
+            print(f"Location '{location}' does not exist.")
+
+    def ignite(self, target_type, target):
+        if target_type.lower() == "item":
+            if target in self.player.inventory or target in self.player.equipped:
+                item = self.items[target]
+                if item.flamable:
+                    print(f"You ignite the {target}.")
+                else:
+                    print(f"The {target} cannot be ignited.")
+            else:
+                print(f"Item '{target}' does not exist.")
+        elif target_type.lower() == "door":
+            room = self.current_room
+            if target in room.exits:
+                door = room.exits[target]
+                if door.flamable:
+                    door.unlocked = True
+                    print(f"You ignite the {target} door.")
+                else:
+                    print(f"The {target} door cannot be ignited.")
+        else:
+            print(f"Target type '{target_type}' is not recognized for ignite.")
+
+    def summon(self, entity):
+        entity_lower = entity.lower()
+        if entity_lower == "bat":
+            self.summons = Bat("summons", self.current_room)
+        elif entity_lower == "ghost":
+            self.summons = Ghost("summons", self.current_room)
+        elif entity_lower == "construct":
+            self.summons = Construct("summons", self.current_room)
+        else:
+            print(f"Entity '{entity}' cannot be summoned.")
+            return
+        
+        print(f"You have summoned a {entity}.") 
 
     def to_dict(self):
         return {"value": self.value, "previous": self.previous, "startup": self.startup}

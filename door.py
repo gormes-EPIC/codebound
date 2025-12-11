@@ -1,7 +1,7 @@
 class Door:
     def __init__(self, direction, room=None, flamable=False, unlocked=True, hidden=False):
         self.direction = direction
-        self.room = room            # actual Room object (linked later)
+        self.room = room 
         self.flamable = flamable
         self.unlocked = unlocked
         self.hidden = hidden
