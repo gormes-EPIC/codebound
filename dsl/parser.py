@@ -1,11 +1,5 @@
-from dsl.ast_nodes import PlusNode
-from dsl.ast_nodes import MinusNode
-from dsl.ast_nodes import TimesNode
-from dsl.ast_nodes import DivideNode
 from dsl.ast_nodes import ProgramNode
 from dsl.ast_nodes import ReportNode
-from dsl.ast_nodes import SaveNode
-from dsl.ast_nodes import SetNode
 from dsl.ast_nodes import IgniteNode
 from dsl.ast_nodes import TeleportNode
 from dsl.ast_nodes import SummonNode
@@ -32,33 +26,8 @@ class Parser:
 
         while self.peek().type != "EOF":
             tok = self.peek().type
-
-            if tok == "PLUS":
-                self.consume("PLUS")
-                amount = self.consume("NUMBER").value
-                statements.append(PlusNode(amount))
-
-            elif tok == "MINUS":
-                self.consume("MINUS")
-                amount = self.consume("NUMBER").value
-                statements.append(MinusNode(amount))
-
-            elif tok == "TIMES":
-                self.consume("TIMES")
-                amount = self.consume("NUMBER").value
-                statements.append(TimesNode(amount))
-
-            elif tok == "DIVIDE":
-                self.consume("DIVIDE")
-                amount = self.consume("NUMBER").value
-                statements.append(DivideNode(amount))
-
-            elif tok == "SET":
-                self.consume("SET")
-                amount = self.consume("NUMBER").value
-                statements.append(SetNode(amount))
             
-            elif tok == "TELEPORT":
+            if tok == "TELEPORT":
                 self.consume("TELEPORT")
                 location = self.consume("IDENT").value
                 statements.append(TeleportNode(location))
@@ -82,11 +51,7 @@ class Parser:
             elif tok == "REPORT":
                 self.consume("REPORT")
                 statements.append(ReportNode())
-
-            elif tok == "SAVE":
-                self.consume("SAVE")
-                statements.append(SaveNode())
-
+                
             else:
                 raise SyntaxError(f"Unexpected token: {tok}")
 

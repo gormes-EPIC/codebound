@@ -12,6 +12,11 @@ from summons import Construct
 
 
 def load_player(data):
+    """
+    Loads the player json data into player object
+    
+    :param data: the Player json data
+    """
     player = Player(
         name=data["name"],
         hp=data["hp"],
@@ -42,7 +47,12 @@ def load_player(data):
 class World:
 
     def create_world(self, world_json):
+        """
+        Creates items, searchables, and rooms and links them together from world json
 
+        :param self: World object
+        :param world_json: json data storing world
+        """
         # 1. Create items
         items_data = world_json.get("items", {})
         items = {name: Item(name, **props) for name, props in items_data.items()}
@@ -99,6 +109,7 @@ class World:
 
 
     def __init__(self, filename): 
+        
         with open(filename) as f:
             data = json.load(f)
         
@@ -123,32 +134,6 @@ class World:
         self.game_won = False
 
         self.summons = None
-        
-    def get_value(self):
-        return self.value
-    
-    def add(self, amount):
-        self.previous = self.value
-        self.value += amount
-    
-    def subtract(self, amount):
-        self.previous = self.value
-        self.value -= amount
-    
-    def multiply(self, amount):
-        self.previous = self.value
-        self.value *= amount
-    
-    def divide(self, amount):
-        self.previous = self.value
-        self.value /= amount
-
-    def set_value(self, amount):
-        self.previous = self.value
-        self.value = amount
-
-    def undo(self):
-        self.value = self.previous
 
     def teleport(self, location):
         if location.lower() in self.rooms:

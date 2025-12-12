@@ -1,27 +1,6 @@
-class PlusNode:
-    def __init__(self, amount):
-        self.amount = amount
-
-class MinusNode:
-    def __init__(self, amount):
-        self.amount = amount
-
-class TimesNode:
-    def __init__(self, amount):
-        self.amount = amount
-
-class DivideNode:
-    def __init__(self, amount):
-        self.amount = amount
-
-class SetNode:
-    def __init__(self, amount):
-        self.amount = amount
-
 class TeleportNode:
     def __init__(self, location):
         self.location = location
-
 
 class IgniteNode:
     def __init__(self, target_type, target):
@@ -41,9 +20,6 @@ class MoveSummonsNode:
         self.location = direction
         
 class ReportNode:
-    pass
-
-class SaveNode:
     pass
 
 class ProgramNode:
