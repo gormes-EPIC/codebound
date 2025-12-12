@@ -24,6 +24,7 @@ import random
 # TODO: Implement sneaking past enemies
 # TODO: Implement list of seen rooms and you can only teleport to seen rooms
 # TODO: Implement drawing teleportation circles that you can use to teleport to certain rooms
+# TODO: Alert mechanics for enemies when you enter a room, compare to stealth stat to see if they notice you
 
 def select_valid_level():
     '''
@@ -428,7 +429,11 @@ try:
             item_list = []
             print("\nYour Inventory:")
             for item in world.player.inventory:
-                print(f"{number}) " + world.player.inventory[item].display_name)
+                print(item, ": ", world.player.inventory[item].equipable)
+                if world.player.inventory[item].equipable == False:
+                    print(f"{number}) " + world.player.inventory[item].display_name)
+                else:
+                    print(f"{number}) " + world.player.inventory[item].display_name + " (Equipable)")
                 item_list.append(world.player.inventory[item])
                 number += 1
             
@@ -460,6 +465,9 @@ try:
                     choice = int(choice) - 1
                     if choice < 0 or choice >= len(item_list):
                         print("\nInvalid item.\n")
+                        continue
+                    if item_list[choice].equipable == False:
+                        print("\nThat item cannot be equipped.\n")
                         continue
                     choice = item_list[choice].name
                 except ValueError:

@@ -4,7 +4,7 @@
   "start_room": "entryway",
   "rooms": {
         "entryway": {
-            "description": "A dimly lit foyer. You step onto a small stained rug that covers the creaky floor boards. There is a small built-in bench to your right, next to an unused coat rack. There is a door on the wall directly in front of you.",
+            "description": "A dimly lit foyer. A small stained rug that covers the creaky floor boards. On the south wall, there is a large wooden door that is the front entrance. There is a door on the north wall leading further into the house.",
             "exits": {
                 "north": { 
                   "room_id":  "ballroom",
@@ -15,7 +15,7 @@
             "searchable": []
         },
         "ballroom": {
-            "description": "You stand in a large ballroom. Two suits of armor flank either side of the south doorway. There is a large iron chandelier above you illuniating the room in candlelight. There is a door on the north wall, east wall, and the west wall.",
+            "description": "A large ballroom. Two suits of armor flank either side of the south doorway. There is a large iron chandelier above you illuniating the room in candlelight. There is a door on the north wall, east wall, and the west wall.",
             "exits": {
                 "north":{ 
                   "room_id":  "north_stairs_1",
@@ -107,7 +107,7 @@
           ]
         },
         "north_stairs_2": {
-            "description":"A rickety staircase goes own.",
+            "description":"A rickety staircase goes down.",
             "exits": {
               "down":{ 
                   "room_id":  "north_stairs_1",
@@ -187,6 +187,7 @@
                 }
             },
           "searchable": [
+            "portrait"
           ]
         },
         "den": {
@@ -599,12 +600,15 @@
     "sword": {
       "display_name": "sword",
       "description": "A small, sharp sword. Equip this item to boost your attack.",
-      "attack": 1
+      "attack": 1,
+      "equipable": true
+      
     }, 
     "breastplate": {
       "display_name": "breastplate",
       "description": "A old but sturdy metal breastplate. Equip this item to boost your defense.",
-      "defense": 1
+      "defense": 1,
+      "equipable": true
     },
     "old_key": {
       "display_name": "old key",
@@ -619,12 +623,14 @@
     "knife":{
       "display_name": "knife",
       "description": "A simple kitchen knife. Equip to boost your attack.",
-      "attack": 1
+      "attack": 1,
+      "equipable": true
     }, 
     "healing_potion":{
       "display_name": "healing potion",
       "description": "A small red vial labeled healing potion. Equip to restore HP.",
-      "hp": 5
+      "hp": 5,
+      "equipable": true
     },
     "sigil":{
       "display_name": "parchment sigil",
@@ -648,12 +654,14 @@
     "science_notes":{
       "display_name": "science notes",
       "description": "A set of notes detailing various experiments and observations. Equip to increase your wit.",
-      "wit": 2
+      "wit": 2,
+      "equipable": true
     },
     "chess piece":{
       "display_name": "chess piece",
       "description": "An ornate chess piece carved from ivory. Equip to boost your wit.",
-      "wit": 1
+      "wit": 1,
+      "equipable": true
     },
     "letter":{
       "display_name": "sealed letter",

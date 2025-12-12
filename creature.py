@@ -23,7 +23,7 @@ class Summons:
         else:
             print("\nYour summons can't go that way.")
 
-        self.report += f"{direction}: " + self.current_room.description + "\n"
+        self.report += f" - {direction}: " + self.current_room.description + "\n"
         # print(f"The construct moves {direction}.")
 
 class Construct(Summons):

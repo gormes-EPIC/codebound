@@ -14,6 +14,7 @@ class Item:
         self.flamable = kwargs.get("flamable", False)
         self.key_item = kwargs.get("key_item", False)
         self.end_condition = kwargs.get("end_condition", False)
+        self.equipable = kwargs.get("equipable", False)
 
     def __repr__(self):
         return f"Item({self.name})"
@@ -33,7 +34,8 @@ class Item:
             "reveal_exit": self.reveal_exit,
             "flamable": self.flamable,
             "key_item": self.key_item,
-            "end_condition": self.end_condition
+            "end_condition": self.end_condition,
+            "eqiupable": self.equipable
         }
 
     @classmethod
@@ -52,5 +54,6 @@ class Item:
             reveal_exit=data.get("reveal_exit", False),
             flamable=data.get("flamable", False),
             key_item=data.get("key_item", False),
-            end_condition=data.get("end_condition", False)
+            end_condition=data.get("end_condition", False),
+            equipable=data.get("equipable", False)
         )
