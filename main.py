@@ -17,14 +17,29 @@ import random
 # TODO: Implement enemy abilities (favoring for certain attack styles)
 # TODO: Implement enemry dropping items
 # TODO: Implement puzzle rooms
-# TODO: Implement combat tutorial
+# TODO: Implement combat tutorial and spellcasting tutorial
 # TODO: Polish text and descriptions
 # TODO: Implement getting rid of items when you find secret doors
 # TODO: Implement more items and searchables - items to increase other stats
 # TODO: Implement sneaking past enemies
-# TODO: Implement list of seen rooms and you can only teleport to seen rooms
+# TODO: Implement list of seen rooms and you can only teleport to seen rooms/rooms named on the map?
 # TODO: Implement drawing teleportation circles that you can use to teleport to certain rooms
 # TODO: Alert mechanics for enemies when you enter a room, compare to stealth stat to see if they notice you
+# TODO: Flee from combat option & drop items
+# TODO: Summons combat and sneaking past
+# TODO: Save and load summons state
+# TODO: Implement findable maps
+# TODO: Implement summoning circles to teleport to
+# TODO: Implement mana to draw a limited number of summoning circles, gain from defaeting enemies and finding items
+# TODO: Implement resting to regain health
+# TODO: Implement enemry types with damage resistances and weaknesses,
+# TODO: Implement critical hits and misses in combat
+# TODO: Implement creating flaming items like swords
+# TODO: Implement light mechanics with flamable items
+# TODO: Add more locked doors that need keys or spells or lockpicking to unlock
+# TODO: Unlock lockpicking ability with stealth stat
+# TODO: Implement trap search and disarm with wit stat
+# TODO: 
 
 def select_valid_level():
     '''
@@ -521,6 +536,12 @@ try:
             print("Your game has been saved. Press CTRL-D or close the window to quit.")
 
         elif action == 6:
+            print("\nEligible Commands:")
+            print("- Teleport [home/location]")
+            print("- Ignite [item/door] [target]")
+            print("- Summon [bat/ghost/construct]")
+            print("- Move summons [direction]")
+            print("- Report\n")
             program = input("Input your program. Separate commands with \">\":")
             program = program.replace(">", "\n")
             print(program)
