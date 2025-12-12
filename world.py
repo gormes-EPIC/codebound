@@ -5,9 +5,9 @@ from searchable import Searchable
 from item import Item
 from door import Door
 from enemy import Enemy
-from creature import Bat
-from creature import Ghost
-from creature import Construct
+from summons import Bat
+from summons import Ghost
+from summons import Construct
 
 
 

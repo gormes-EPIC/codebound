@@ -1,15 +1,15 @@
-from ast_nodes import PlusNode
-from ast_nodes import MinusNode
-from ast_nodes import TimesNode
-from ast_nodes import DivideNode
-from ast_nodes import ProgramNode
-from ast_nodes import ReportNode
-from ast_nodes import SaveNode
-from ast_nodes import SetNode
-from ast_nodes import TeleportNode
-from ast_nodes import IgniteNode
-from ast_nodes import SummonNode
-from ast_nodes import MoveSummonsNode
+from dsl.ast_nodes import PlusNode
+from dsl.ast_nodes import MinusNode
+from dsl.ast_nodes import TimesNode
+from dsl.ast_nodes import DivideNode
+from dsl.ast_nodes import ProgramNode
+from dsl.ast_nodes import ReportNode
+from dsl.ast_nodes import SaveNode
+from dsl.ast_nodes import SetNode
+from dsl.ast_nodes import TeleportNode
+from dsl.ast_nodes import IgniteNode
+from dsl.ast_nodes import SummonNode
+from dsl.ast_nodes import MoveSummonsNode
 
 class WorldInterpreter:
     def __init__(self, world):

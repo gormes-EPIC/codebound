@@ -1,6 +1,6 @@
-from lexer import tokenize
-from parser import Parser
-from interpreter import WorldInterpreter
+from dsl.lexer import tokenize
+from dsl.parser import Parser
+from dsl.interpreter import WorldInterpreter
 from world import World
 from player import Player
 import json
@@ -8,12 +8,9 @@ import random
 
 # TODO: Spellcasting implementation
 # TODO: Combat implementation - rough draft done
-# TODO: Finish upstairs of haunted house level
 # TODO: Commenting and docstrings
 # TODO: Implement key items and add them to stats
 # TODO: Add level ending and winning condition(then with ending stats of what the user found/defeated)
-# TODO: Implement teleporting
-# TODO: Implement gated rooms (needing stat level to enter)
 # TODO: Implement enemy abilities (favoring for certain attack styles)
 # TODO: Implement enemry dropping items
 # TODO: Implement puzzle rooms
@@ -39,7 +36,8 @@ import random
 # TODO: Add more locked doors that need keys or spells or lockpicking to unlock
 # TODO: Unlock lockpicking ability with stealth stat
 # TODO: Implement trap search and disarm with wit stat
-# TODO: 
+# TODO: Implement live map?
+
 
 def select_valid_level():
     '''
