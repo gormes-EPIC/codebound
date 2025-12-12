@@ -354,6 +354,8 @@ try:
             break
 
         print("\n" +  world.current_room.description + "\n")
+        if world.summons != None:
+            print('\n' + world.summons.current_room.name + '\n')
 
         if world.current_room.enemies != {}:
             print(world.current_room.combat_init_text + "\n")

@@ -1,4 +1,31 @@
-class Construct:
+class Summons: 
+
+    def move(self, direction, world):
+        if direction in self.current_room.exits:
+            if self.current_room.exits[direction].unlocked and self.current_room.exits[direction].hidden == False:
+                self.current_room = self.current_room.exits[direction].room
+            elif self.current_room.exits[direction].hidden == True:
+                print("\nYour summons can't go that way.")
+            elif self.current_room.exits[direction].unlocked == False:
+                unlocked = False
+                for item in world.player.inventory:
+                    if world.player.inventory[item].unlock_door == self.current_room.exits[direction].room.name:
+                        print("\nYour summons uses the key to unlock the door.")
+                        self.current_room.exits[direction].unlocked = True
+                        self.current_room = self.current_room.exits[direction].room
+                        unlocked = True
+                        break
+                if unlocked == False:
+                    print("\nYour summons can't go that way. The door is locked.")
+            else:
+                print("\Your summons can't go that way.")
+        else:
+            print("\nYour summons can't go that way.")
+
+        self.report += f"{direction}: " + self.current_room.description + "\n"
+        print(f"The construct moves {direction}.")
+
+class Construct(Summons):
     def __init__(self, name, room=None):
         self.name = name
         self.hp = 5
@@ -9,33 +36,7 @@ class Construct:
         self.current_room = room
         self.report = ""
 
-    def move(self, direction, world):
-        if direction in world.current_room.exits:
-            if world.current_room.exits[direction].unlocked and world.current_room.exits[direction].hidden == False:
-                self.current_room = world.current_room.exits[direction].room
-            elif world.current_room.exits[direction].hidden == True:
-                print("\nYou can't go that way.")
-            elif world.current_room.exits[direction].unlocked == False:
-                unlocked = False
-                for item in world.player.inventory:
-                    if world.player.inventory[item].unlock_door == world.current_room.exits[direction].room.name:
-                        print("\nYou use the key to unlock the door.")
-                        world.current_room.exits[direction].unlocked = True
-                        self.current_room = world.current_room.exits[direction].room
-                        unlocked = True
-                        break
-                if unlocked == False:
-                    print("\nThe door is locked.")
-            else:
-                print("\nYou can't go that way.")
-        else:
-            print("\nYou can't go that way.")
-
-        self.report += f"{direction}: " + self.current_room.description + "\n"
-
-        print(f"The construct moves {direction}.")
-
-class Bat:
+class Bat(Summons):
     def __init__(self, name, room=None):
         self.name = name
         self.hp = 2
@@ -46,33 +47,8 @@ class Bat:
         self.current_room = room
         self.report = ""
 
-    def move(self, direction, world):
-        if direction in world.current_room.exits:
-            if world.current_room.exits[direction].unlocked and world.current_room.exits[direction].hidden == False:
-                self.current_room = world.current_room.exits[direction].room
-            elif world.current_room.exits[direction].hidden == True:
-                print("\nYou can't go that way.")
-            elif world.current_room.exits[direction].unlocked == False:
-                unlocked = False
-                for item in world.player.inventory:
-                    if world.player.inventory[item].unlock_door == world.current_room.exits[direction].room.name:
-                        print("\nYou use the key to unlock the door.")
-                        world.current_room.exits[direction].unlocked = True
-                        self.current_room = world.current_room.exits[direction].room
-                        unlocked = True
-                        break
-                if unlocked == False:
-                    print("\nThe door is locked.")
-            else:
-                print("\nYou can't go that way.")
-        else:
-            print("\nYou can't go that way.")
 
-        self.report += f"{direction}: " + self.current_room.description + "\n"
-        print(f"The construct moves {direction}.")
-
-
-class Ghost:
+class Ghost(Summons):
     def __init__(self, name, room=None):
         self.name = name
         self.hp = 3
@@ -82,31 +58,5 @@ class Ghost:
         self.stealth = 5
         self.current_room = room
         self.report = ""
-    
-    def move(self, direction, world):
-        if direction in world.current_room.exits:
-            if world.current_room.exits[direction].unlocked and world.current_room.exits[direction].hidden == False:
-                self.current_room = world.current_room.exits[direction].room
-            elif world.current_room.exits[direction].hidden == True:
-                print("\nYou can't go that way.")
-            elif world.current_room.exits[direction].unlocked == False:
-                unlocked = False
-                for item in world.player.inventory:
-                    if world.player.inventory[item].unlock_door == world.current_room.exits[direction].room.name:
-                        print("\nYou use the key to unlock the door.")
-                        world.current_room.exits[direction].unlocked = True
-                        self.current_room = world.current_room.exits[direction].room
-                        unlocked = True
-                        break
-                if unlocked == False:
-                    print("\nThe door is locked.")
-            else:
-                print("\nYou can't go that way.")
-        else:
-            print("\nYou can't go that way.")
-
-        print("Current Summons Room: " + self.current_room.name)
-        self.report += f"{direction}: " + self.current_room.description + "\n"
-        print(f"The construct moves {direction}.")
 
 

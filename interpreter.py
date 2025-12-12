@@ -50,10 +50,7 @@ class WorldInterpreter:
         self.world.summon(entity)
 
     def move_summons(self, direction):
-        if self.world.summons:
-            self.world.summons.move(direction, self.world)
-        else:
-            print("No summons to move.")
+        self.world.move_summons(direction)
 
     def run(self, program_node):
         for stmt in program_node.statements:

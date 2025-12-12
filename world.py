@@ -192,9 +192,13 @@ class World:
             self.summons = Construct("summons", self.current_room)
         else:
             print(f"Entity '{entity}' cannot be summoned.")
-            return
+
+    def move_summons(self, direction):
+        if self.summons:
+            self.summons.move(direction, self)
+        else:
+            print("No summons to move.")
         
-        print(f"You have summoned a {entity}.") 
 
     def to_dict(self):
         return {"value": self.value, "previous": self.previous, "startup": self.startup}
