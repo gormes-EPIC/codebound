@@ -1,6 +1,6 @@
 {
   "name": "Player 1",
-  "hp": 10,
+  "hp": 6,
   "unlocked": {
     "spellbook": true,
     "lockpicking": false,
@@ -58,7 +58,7 @@
       "flamable": false,
       "key_item": false,
       "end_condition": false,
-      "eqiupable": true
+      "eqiupable": false
     },
     "breastplate": {
       "name": "breastplate",
@@ -75,7 +75,7 @@
       "flamable": false,
       "key_item": false,
       "end_condition": false,
-      "eqiupable": true
+      "eqiupable": false
     }
   },
   "attack": 6,
