@@ -2,7 +2,9 @@
   "name": "Player 1",
   "hp": 10,
   "unlocked": {
-    "spellbook": true
+    "spellbook": true,
+    "lockpicking": false,
+    "map": false
   },
   "inventory": {
     "old_key": {
