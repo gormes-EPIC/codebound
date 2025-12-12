@@ -199,6 +199,13 @@ class World:
         else:
             print("No summons to move.")
         
+    def report(self):
+        if self.summons.current_room == self.current_room:
+            print("Your summons is here with you.")
+            print(self.summons.report)
+        else:
+            print(f"Your summons is in the {self.summons.current_room.name}.")
+            print("\nYou cannot read its report from here.")
 
     def to_dict(self):
         return {"value": self.value, "previous": self.previous, "startup": self.startup}

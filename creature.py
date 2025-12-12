@@ -6,24 +6,25 @@ class Summons:
                 self.current_room = self.current_room.exits[direction].room
             elif self.current_room.exits[direction].hidden == True:
                 print("\nYour summons can't go that way.")
+            # elif self.current_room.exits[direction].unlocked == False:
+            #     unlocked = False
+            #     for item in world.player.inventory:
+            #         if world.player.inventory[item].unlock_door == self.current_room.exits[direction].room.name:
+            #             print("\nYour summons uses the key to unlock the door.")
+            #             self.current_room.exits[direction].unlocked = True
+            #             self.current_room = self.current_room.exits[direction].room
+            #             unlocked = True
+            #             break
+                # if unlocked == False:
             elif self.current_room.exits[direction].unlocked == False:
-                unlocked = False
-                for item in world.player.inventory:
-                    if world.player.inventory[item].unlock_door == self.current_room.exits[direction].room.name:
-                        print("\nYour summons uses the key to unlock the door.")
-                        self.current_room.exits[direction].unlocked = True
-                        self.current_room = self.current_room.exits[direction].room
-                        unlocked = True
-                        break
-                if unlocked == False:
-                    print("\nYour summons can't go that way. The door is locked.")
+                print("\nYour summons can't go that way. The door is locked.")
             else:
-                print("\Your summons can't go that way.")
+                print("\nYour summons can't go that way.")
         else:
             print("\nYour summons can't go that way.")
 
         self.report += f"{direction}: " + self.current_room.description + "\n"
-        print(f"The construct moves {direction}.")
+        # print(f"The construct moves {direction}.")
 
 class Construct(Summons):
     def __init__(self, name, room=None):

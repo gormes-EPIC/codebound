@@ -31,8 +31,7 @@ class WorldInterpreter:
         self.world.set_value(amount)
 
     def report(self):
-        value = self.world.summons.report
-        print(f"Report:\n {value}")
+        self.world.report()
 
     def save(self):
         self.world.save()
