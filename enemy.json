@@ -1,6 +1,15 @@
 {
+    "small_cultist": {
+        "description": "A small figure in a dark pink robe. You see a small face from under the cloak, and it whispers something, but you can't hear what.",
+        "hp": 3,
+        "attack": 4,
+        "defense": 2,
+        "stealth": 0,
+        "wit": 3,
+        "awareness": 2
+    },
     "cultist": {
-        "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
+        "description": "A tall figure in a dark red robe, hunched over the altar. Their eyes glow with an otherworldly light.",
         "hp": 3,
         "attack": 4,
         "defense": 2,
