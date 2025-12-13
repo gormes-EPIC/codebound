@@ -153,15 +153,7 @@
                 }
             },
             "enemies" : {
-                "animated_armor": {
-                  "description": "A suit of armor gleams menacingly as it moves to block your path.",
-                  "hp": 3,
-                  "attack": 4,
-                  "defense": 5,
-                  "stealth": 1,
-                  "wit": 1,
-                  "awareness": 2
-                }
+                "animated_armor": "animated_armor"
             }, 
           "combat_init_text": "A suit of animated armor clanks to life blocking your path!", 
             
@@ -206,7 +198,8 @@
                 }
             },
           "searchable": [
-            "wall_sconce"
+            "wall_sconce",
+            "couch"
           ]
         },
         "laboratory": {
@@ -497,33 +490,9 @@
                 }
             },
               "enemies" : {
-                "cultist_1": {
-                  "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
-                  "hp": 3,
-                  "attack": 4,
-                  "defense": 2,
-                  "stealth": 0,
-                  "wit": 3,
-                  "awareness": 2
-                },
-                "cultist_2": {
-                  "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
-                  "hp": 3,
-                  "attack": 4,
-                  "defense": 2,
-                  "stealth": 0,
-                  "wit": 3,
-                  "awareness": 2
-                },
-                "cultist_3": {
-                  "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
-                  "hp": 3,
-                  "attack": 4,
-                  "defense": 2,
-                  "stealth": 0,
-                  "wit": 3,
-                  "awareness": 2
-              }
+                "cultist_1": "cultist",
+                "cultist_2": "cultist",
+                "cultist_3": "cultist"
             }, 
             "combat_init_text": "Three cultists with bowed heads surround a center altar. The cultists turn to face you, their eyes glowing with an otherworldly light. They raise their hands, ready to attack!", 
             "searchable": [
@@ -603,6 +572,10 @@
     "wall_sconce":{
       "items": [
         "longsword"
+      ]
+    }, "couch":{
+      "items": [
+        "map_floor_1"
       ]
     }
   },
@@ -698,6 +671,12 @@
       "description": "A large sword.",
       "attack": 2,
       "equipable":true 
+    },
+    "map_floor_1":{
+      "display_name": "first floor map",
+      "description": "A map of the first floor.",
+      "map": true,
+      "map_filepath": "./assets/haunted_house_floor_1.txt"
     }
   }
 }

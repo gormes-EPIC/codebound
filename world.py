@@ -8,7 +8,7 @@ from enemy import Enemy
 from summons import Bat
 from summons import Ghost
 from summons import Construct
-
+import copy
 
 
 def load_player(data):
@@ -46,7 +46,7 @@ def load_player(data):
 
 class World:
 
-    def create_world(self, world_json):
+    def create_world(self, world_json, enemy_json):
         """
         Creates items, searchables, and rooms and links them together from world json
 
@@ -76,6 +76,21 @@ class World:
                 summoning_circle=r_props.get("summoning_circle", False)
             )
 
+         # 3.3 create enemies
+        enemy_data = enemy_json
+        enemies = {}
+        for e_name, e_props in enemy_data.items():
+            enemies[e_name] = Enemy(
+                name=e_name,
+                description=e_props.get("description", ""),
+                hp=e_props.get("hp",0),
+                attack=e_props.get("attack", 0),
+                defense=e_props.get("defense", 0),
+                stealth=e_props.get("stealth", 0),
+                wit=e_props.get("wit", 0),
+                awareness=e_props.get("awareness",0)
+            )
+
         # 4. Now create Door objects and link room exits
         # 4. Link exits + populate enemies
         for r_name, r_props in rooms_data.items():
@@ -94,42 +109,39 @@ class World:
 
             # ---------- Enemies ----------
             for enemy_name, enemy_props in r_props.get("enemies", {}).items():
-                room.enemies[enemy_name] = Enemy(
-                    name=enemy_name,
-                    description=enemy_props.get("description", ""),
-                    hp=enemy_props.get("hp", 0),
-                    attack=enemy_props.get("attack", 0),
-                    defense=enemy_props.get("defense", 0),
-                    stealth=enemy_props.get("stealth", 0),
-                    wit=enemy_props.get("wit", 0),
-                    awareness=enemy_props.get("awareness",0)
-                )
+                room.enemies[enemy_name] = copy.deepcopy(enemies.get(enemy_props))
             room.combat_init_text = r_props.get("combat_init_text", "")
 
 
-        return items, searchables, rooms
+        return items, searchables, rooms, enemies
 
 
     def __init__(self, filename): 
         
         with open(filename) as f:
             data = json.load(f)
+
+        with open("enemy.json", "r") as f:
+            enemy_data = json.load(f)
         
         self.value = data["value"]
         self.previous = self.value
         self.startup = data["startup_text"]
 
-        items, searchables, rooms = self.create_world(data)
+        items, searchables, rooms, enemies = self.create_world(data, enemy_data)
 
         self.items = items
         self.searchables = searchables
         self.rooms = rooms
+        self.enemies = enemies
+        print(self.rooms["summoning_chamber"].enemies)
 
         self.start_room = data["start_room"]
         self.current_room = rooms[data["start_room"]]
 
         with open("player.json", "r") as f:
             player_data = json.load(f)
+
 
         self.player = load_player(player_data)
 

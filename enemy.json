@@ -1,0 +1,20 @@
+{
+    "cultist": {
+        "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
+        "hp": 3,
+        "attack": 4,
+        "defense": 2,
+        "stealth": 0,
+        "wit": 3,
+        "awareness": 2
+    },
+    "animated_armor": {
+        "description": "A suit of armor gleams menacingly as it moves to block your path.",
+        "hp": 3,
+        "attack": 4,
+        "defense": 5,
+        "stealth": 1,
+        "wit": 1,
+        "awareness": 2
+    }
+}

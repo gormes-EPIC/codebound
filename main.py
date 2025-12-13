@@ -173,7 +173,7 @@ def combat3(world):
         # Show enemies
         print("\nEnemies:")
         for key, enemy in world.current_room.enemies.items():
-            print(f" - {enemy.name.replace("_", " ")} (HP: {enemy.hp})")
+            print(f" - {key.replace("_", " ")} (HP: {enemy.hp})")
 
         # Choose target
         if len(world.current_room.enemies) == 1:

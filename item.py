@@ -15,6 +15,8 @@ class Item:
         self.key_item = kwargs.get("key_item", False)
         self.end_condition = kwargs.get("end_condition", False)
         self.equipable = kwargs.get("equipable", False)
+        self.map = kwargs.get("map", False)
+        self.map_filepath = kwargs.get("map_filepath", False)
 
     def __repr__(self):
         return f"Item({self.name})"
@@ -35,7 +37,9 @@ class Item:
             "flamable": self.flamable,
             "key_item": self.key_item,
             "end_condition": self.end_condition,
-            "eqiupable": self.equipable
+            "eqiupable": self.equipable,
+            "map":self.map,
+            "map_filename": self.map_filepath
         }
 
     @classmethod
@@ -55,5 +59,7 @@ class Item:
             flamable=data.get("flamable", False),
             key_item=data.get("key_item", False),
             end_condition=data.get("end_condition", False),
-            equipable=data.get("equipable", False)
+            equipable=data.get("equipable", False),
+            map=data.get("map",False),
+            map_filepath=data.get("map_filepath", False)
         )
