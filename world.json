@@ -159,7 +159,8 @@
                   "attack": 4,
                   "defense": 5,
                   "stealth": 1,
-                  "wit": 1
+                  "wit": 1,
+                  "awareness": 2
                 }
             }, 
           "combat_init_text": "A suit of animated armor clanks to life blocking your path!", 
@@ -191,7 +192,7 @@
           ]
         },
         "den": {
-            "description":"...",
+            "description":"A cozy living room. This room has a large couch and a few plush chairs surrounding a fireplace. There is a large bearskin rug on the floor and a wall sconce with crossed swords.",
             "exits": {
                 "north":{ 
                   "room_id":  "hallway",
@@ -205,6 +206,7 @@
                 }
             },
           "searchable": [
+            "wall_sconce"
           ]
         },
         "laboratory": {
@@ -501,7 +503,8 @@
                   "attack": 4,
                   "defense": 2,
                   "stealth": 0,
-                  "wit": 3
+                  "wit": 3,
+                  "awareness": 2
                 },
                 "cultist_2": {
                   "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
@@ -509,7 +512,8 @@
                   "attack": 4,
                   "defense": 2,
                   "stealth": 0,
-                  "wit": 3
+                  "wit": 3,
+                  "awareness": 2
                 },
                 "cultist_3": {
                   "description": "A figure in a dark robe, hunched over the altar. Their eyes glow with an otherworldly light.",
@@ -517,7 +521,8 @@
                   "attack": 4,
                   "defense": 2,
                   "stealth": 0,
-                  "wit": 3
+                  "wit": 3,
+                  "awareness": 2
               }
             }, 
             "combat_init_text": "Three cultists with bowed heads surround a center altar. The cultists turn to face you, their eyes glowing with an otherworldly light. They raise their hands, ready to attack!", 
@@ -594,6 +599,11 @@
       "items": [
         "plaque"
       ]
+    },
+    "wall_sconce":{
+      "items": [
+        "longsword"
+      ]
     }
   },
   "items": {
@@ -648,7 +658,7 @@
     },
     "note":{
       "display_name": "crumpled note",
-      "description": "A crumpled piece...",
+      "description": "A crumpled piece of paper describing a ritual involving three cultists and an altar.",
       "key_item": true
     },
     "science_notes":{
@@ -682,6 +692,12 @@
       "display_name": "family plaque",
       "description": "A brass plaque mounted below the portrait. It lists the names Theodore, Margaret, and their two children, Lila and James.",
       "key_item": true
+    },
+    "longsword":{
+      "display_name": "longsword",
+      "description": "A large sword.",
+      "attack": 2,
+      "equipable":true 
     }
   }
 }

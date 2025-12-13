@@ -6,10 +6,10 @@ from player import Player
 import json
 import random
 
+# TODO: Fix the saving/items cloning issues!
 # TODO: Spellcasting implementation
 # TODO: Combat implementation - rough draft done
 # TODO: Commenting and docstrings
-# TODO: Implement key items and add them to stats
 # TODO: Add level ending and winning condition(then with ending stats of what the user found/defeated)
 # TODO: Implement enemy abilities (favoring for certain attack styles)
 # TODO: Implement enemry dropping items
@@ -21,7 +21,6 @@ import random
 # TODO: Implement sneaking past enemies
 # TODO: Implement list of seen rooms and you can only teleport to seen rooms/rooms named on the map?
 # TODO: Implement drawing teleportation circles that you can use to teleport to certain rooms
-# TODO: Alert mechanics for enemies when you enter a room, compare to stealth stat to see if they notice you
 # TODO: Flee from combat option & drop items
 # TODO: Summons combat and sneaking past
 # TODO: Save and load summons state
@@ -37,7 +36,9 @@ import random
 # TODO: Unlock lockpicking ability with stealth stat
 # TODO: Implement trap search and disarm with wit stat
 # TODO: Implement live map?
-
+# TODO: Implement different starting builds with different ststs
+# TODO: Figure out the whole combat system balance and item loading/saving. So we need to save and update the world... OR we need to remove saved items from inventory. How will this work with dropped items? Should we save items by level maybe?
+# TODO: Refactor enemies so they are in their own json
 
 def select_valid_level():
     '''
@@ -112,8 +113,6 @@ def to_dict(self):
 def start_script():
     '''
     Start script to initialize or load player data.
-
-    :return: None
     '''
     # If not existing player, set new player stats and name
     while True:
@@ -130,7 +129,25 @@ def start_script():
                     json.dump(to_dict(player), f, indent=2)
 
             break
-import random
+
+def sneak(world):
+    """
+    Implements the sneaking mechanics. If failed, it initiates combat.
+
+    :param world: the world object representing the current state of the world
+    """
+    print("\nStealth Initiated!")
+
+    for enemy in world.current_room.enemies:
+        
+        score = random.randint(0, world.player.stealth)
+        if world.current_room.enemies[enemy].awareness > score:
+            print("You've been spotted!")
+            combat3(world)
+        else:
+            print("You are able pass unscathed.")
+
+
 
 def combat3(world):
     print("\nCombat initiated!")
@@ -283,8 +300,8 @@ def combat2(world):
 
         if world.player.hp <= 0:
             print("You have been defeated.\n")
+            tabulate(world)
             exit()
-
 
 def combat(world):
     print("Combat initiated!")
@@ -347,6 +364,64 @@ def tabulate(world):
     print(f"You have found {sum} key items during your adventure.")
     exit()
 
+def move(world):
+    print("\nChoose an exit:")
+    for exits in world.current_room.exits:
+        if world.current_room.exits[exits].hidden == False:
+            print("- Go " + exits)
+        else:
+            for item in world.player.inventory:
+                if  world.player.inventory[item].reveal_exit == world.current_room.exits[exits].room.name:
+                    print("You use your parchment to reveal a door.")
+                    print("- Go " + exits)
+                    world.current_room.exits[exits].hidden = False
+                    break
+    direction = input("Choose a direction: ").strip().lower()
+    if direction in world.current_room.exits:
+        if world.current_room.exits[direction].unlocked and world.current_room.exits[direction].hidden == False:
+            world.current_room = world.current_room.exits[direction].room
+        elif world.current_room.exits[direction].hidden == True:
+            print("\nYou can't go that way.")
+        elif world.current_room.exits[direction].unlocked == False:
+            unlocked = False
+            for item in world.player.inventory:
+                if world.player.inventory[item].unlock_door == world.current_room.exits[direction].room.name:
+                    print("\nYou use the key to unlock the door.")
+                    world.current_room.exits[direction].unlocked = True
+                    world.current_room = world.current_room.exits[direction].room
+                    unlocked = True
+                    break
+            if unlocked == False:
+                print("\nThe door is locked.")
+        else:
+            print("\nYou can't go that way.")
+    else:
+        print("\nYou can't go that way.")
+
+def search(world):
+    print("\nChoose an item:")
+    for search in world.current_room.searchables:
+        print("- " + search.name.replace("_", " "))
+    choice = input("Choose an item to search: ").strip().lower().replace(" ", "_")
+
+    found = False
+    for searchable in world.current_room.searchables:
+        if choice == searchable.name:
+            items = searchable.items
+            print("\nYou found: ")
+            for item in items:
+                print("- " + item.display_name)
+                world.player.inventory[item.name] = item
+                if item.unlock_spellbook == True:
+                    world.player.unlocked["spellbook"] = True
+                if item.end_condition == True:
+                    world.game_won = True
+            searchable.items = []
+            found = True
+        print("")
+    if found == False:
+        print("That item is not searchable.\n")
+
 ### GAME START
 print("Welcome to Codebound!\n")
 start_script()
@@ -373,76 +448,35 @@ try:
 
         if world.current_room.enemies != {}:
             print(world.current_room.combat_init_text + "\n")
-            combat3(world)
-            print("\nYou have defeated all enemies in the room!\n")
+
+            while True:
+                choice = input("Would you like to initiate combat or would you like to attempt to sneak past this room? Select \"combat\" or \"stealth\": ")
+                if choice == "combat" or choice == "stealth":
+                    break
+
+            if choice == "combat":    
+                combat3(world)
+                print("\nYou have defeated all enemies in the room!\n")
+            else:
+                sneak(world)
+
+            
             print(world.current_room.description + "\n")
 
         action = select_valid_action(world)
 
         if action == 1:
-            print("\nChoose an exit:")
-            for exits in world.current_room.exits:
-                if world.current_room.exits[exits].hidden == False:
-                    print("- Go " + exits)
-                else:
-                    for item in world.player.inventory:
-                        if  world.player.inventory[item].reveal_exit == world.current_room.exits[exits].room.name:
-                            print("You use your parchment to reveal a door.")
-                            print("- Go " + exits)
-                            world.current_room.exits[exits].hidden = False
-                            break
-            direction = input("Choose a direction: ").strip().lower()
-            if direction in world.current_room.exits:
-                if world.current_room.exits[direction].unlocked and world.current_room.exits[direction].hidden == False:
-                    world.current_room = world.current_room.exits[direction].room
-                elif world.current_room.exits[direction].hidden == True:
-                    print("\nYou can't go that way.")
-                elif world.current_room.exits[direction].unlocked == False:
-                    unlocked = False
-                    for item in world.player.inventory:
-                        if world.player.inventory[item].unlock_door == world.current_room.exits[direction].room.name:
-                            print("\nYou use the key to unlock the door.")
-                            world.current_room.exits[direction].unlocked = True
-                            world.current_room = world.current_room.exits[direction].room
-                            unlocked = True
-                            break
-                    if unlocked == False:
-                        print("\nThe door is locked.")
-                else:
-                    print("\nYou can't go that way.")
-            else:
-                print("\nYou can't go that way.")
+            move(world)
 
         elif action == 2:
-            print("\nChoose an item:")
-            for search in world.current_room.searchables:
-                print("- " + search.name.replace("_", " "))
-            choice = input("Choose an item to search: ").strip().lower().replace(" ", "_")
-        
-            found = False
-            for searchable in world.current_room.searchables:
-                if choice == searchable.name:
-                    items = searchable.items
-                    print("\nYou found: ")
-                    for item in items:
-                        print("- " + item.display_name)
-                        world.player.inventory[item.name] = item
-                        if item.unlock_spellbook == True:
-                            world.player.unlocked["spellbook"] = True
-                        if item.end_condition == True:
-                            world.game_won = True
-                    searchable.items = []
-                    found = True
-                print("")
-            if found == False:
-                print("That item is not searchable.\n")
+            search(world)
 
         elif action == 3:
             number = 1
             item_list = []
+            
             print("\nYour Inventory:")
             for item in world.player.inventory:
-                print(item, ": ", world.player.inventory[item].equipable)
                 if world.player.inventory[item].equipable == False:
                     print(f"{number}) " + world.player.inventory[item].display_name)
                 else:
@@ -473,30 +507,35 @@ try:
                     print("\nInvalid item.\n")
                     continue
             elif choice == "B":
-                choice = input("Choose an item to equip(by number as listed above): ")
-                try: 
-                    choice = int(choice) - 1
-                    if choice < 0 or choice >= len(item_list):
+                if len(world.player.equipped) + 1 <= 5:
+
+                    choice = input("Choose an item to equip(by number as listed above): ")
+                    try: 
+                        choice = int(choice) - 1
+                        if choice < 0 or choice >= len(item_list):
+                            print("\nInvalid item.\n")
+                            continue
+                        if item_list[choice].equipable == False:
+                            print("\nThat item cannot be equipped.\n")
+                            continue
+                        choice = item_list[choice].name
+                    except ValueError:
                         print("\nInvalid item.\n")
                         continue
-                    if item_list[choice].equipable == False:
-                        print("\nThat item cannot be equipped.\n")
+                    print(choice)
+                    if choice not in world.player.inventory:
+                        print("\nYou don't have that item in your inventory.\n")
                         continue
-                    choice = item_list[choice].name
-                except ValueError:
-                    print("\nInvalid item.\n")
-                    continue
-                print(choice)
-                if choice not in world.player.inventory:
-                    print("\nYou don't have that item in your inventory.\n")
-                    continue
-                world.player.equipped[choice] = world.player.inventory[choice]
-                del world.player.inventory[choice]
-                world.player.attack += world.player.equipped[choice].attack
-                world.player.defense += world.player.equipped[choice].defense
-                world.player.stealth += world.player.equipped[choice].stealth
-                world.player.wit += world.player.equipped[choice].wit
-                print(f"\nYou have equipped {choice}.\n")
+                    world.player.equipped[choice] = world.player.inventory[choice]
+                    del world.player.inventory[choice]
+                    world.player.attack += world.player.equipped[choice].attack
+                    world.player.defense += world.player.equipped[choice].defense
+                    world.player.stealth += world.player.equipped[choice].stealth
+                    world.player.wit += world.player.equipped[choice].wit
+                    print(f"\nYou have equipped {choice}.\n")
+                else:
+                    print("You have too many items equiped.")
+                
             elif choice == "C":
                 choice = input("Choose an item to equip(by number as listed above): ")
                 try: 
@@ -535,11 +574,12 @@ try:
 
         elif action == 6:
             print("\nEligible Commands:")
-            print("- Teleport [home/location]")
+            print("- Teleport [home/circle/location]")
             print("- Ignite [item/door] [target]")
             print("- Summon [bat/ghost/construct] - only one at a time")
             print("- Move summons [direction]- summons cannot pass through locked doors")
             print("- Report - summons can only report when they are in the same room as the player\n")
+            print("- Draw Circle - draws a summoning circle in this room. Teleport to your circle at any time")
             program = input("Input your program. Separate commands with \">\":")
             program = program.replace(">", "\n")
             print(program)

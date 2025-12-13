@@ -4,6 +4,7 @@ from dsl.ast_nodes import TeleportNode
 from dsl.ast_nodes import IgniteNode
 from dsl.ast_nodes import SummonNode
 from dsl.ast_nodes import MoveSummonsNode
+from dsl.ast_nodes import DrawSummoningCircleNode
 
 class WorldInterpreter:
     def __init__(self, world):
@@ -24,6 +25,9 @@ class WorldInterpreter:
     def move_summons(self, direction):
         self.world.move_summons(direction)
 
+    def draw_circle(self):
+        self.world.draw_circle()
+
     def run(self, program_node):
         for stmt in program_node.statements:
             if isinstance(stmt, ReportNode):
@@ -35,4 +39,6 @@ class WorldInterpreter:
             elif isinstance(stmt, SummonNode):
                 self.summon(stmt.entity)
             elif isinstance(stmt, MoveSummonsNode):
-                self.move_summons(stmt.location)    
+                self.move_summons(stmt.location)   
+            elif isinstance(stmt, DrawSummoningCircleNode):
+                self.draw_circle() 

@@ -8,8 +8,7 @@ class IgniteNode:
         self.target_type = target_type
 
 class DrawSummoningCircleNode:
-    def __init__(self, location):
-        self.location = location
+    pass
 
 class SummonNode:
     def __init__(self, entity):

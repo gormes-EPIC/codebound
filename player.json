@@ -76,9 +76,26 @@
       "key_item": false,
       "end_condition": false,
       "eqiupable": false
+    },
+    "longsword": {
+      "name": "longsword",
+      "display_name": "longsword",
+      "description": "A large sword.",
+      "attack": 2,
+      "defense": 0,
+      "stealth": 0,
+      "wit": 0,
+      "hp": 0,
+      "unlock_door": false,
+      "unlock_spellbook": false,
+      "reveal_exit": false,
+      "flamable": false,
+      "key_item": false,
+      "end_condition": false,
+      "eqiupable": true
     }
   },
-  "attack": 6,
+  "attack": 8,
   "defense": 6,
   "stealth": 5,
   "wit": 5

@@ -72,7 +72,8 @@ class World:
             rooms[r_name] = Room(
                 name=r_name,
                 description=r_props.get("description", ""),
-                searchables=r_searchables
+                searchables=r_searchables,
+                summoning_circle=r_props.get("summoning_circle", False)
             )
 
         # 4. Now create Door objects and link room exits
@@ -100,7 +101,8 @@ class World:
                     attack=enemy_props.get("attack", 0),
                     defense=enemy_props.get("defense", 0),
                     stealth=enemy_props.get("stealth", 0),
-                    wit=enemy_props.get("wit", 0)
+                    wit=enemy_props.get("wit", 0),
+                    awareness=enemy_props.get("awareness",0)
                 )
             room.combat_init_text = r_props.get("combat_init_text", "")
 
@@ -135,6 +137,9 @@ class World:
 
         self.summons = None
 
+        self.summoning_circle = None
+
+
     def teleport(self, location):
         if location.lower() in self.rooms:
             self.current_room = self.rooms[location]
@@ -142,6 +147,9 @@ class World:
         elif location.lower() == "home":
             self.current_room = self.rooms[self.start_room]
             print(f"Teleported home to {self.start_room}.")
+        elif location.lower() == "circle":
+            self.current_room = self.summoning_circle
+            print(f"Teleported to {self.current_room.name} using the summoning circle.")
         else:
             print(f"Location '{location}' does not exist.")
 
@@ -191,9 +199,17 @@ class World:
             print(f"Your summons is not here with you.")
             print("\nYou cannot read its report from here.")
 
-    def to_dict(self):
-        return {"value": self.value, "previous": self.previous, "startup": self.startup}
-    
+    def draw_circle(self):
+        room = self.current_room
+        if self.summoning_circle:
+            self.summoning_circle.summoning_circle = False
+        self.summoning_circle = room
+        if room.summoning_circle == False:
+            room.summoning_circle = True
+            print(f"You drew a summoning circle in {room.name}")
+
+
+
     def save(self):
         with open("world.json", "w") as f:
             json.dump(self.to_dict(), f, indent=2)
