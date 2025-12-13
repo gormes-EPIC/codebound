@@ -490,9 +490,9 @@
                 }
             },
               "enemies" : {
-                "cultist_1": "cultist",
-                "cultist_2": "cultist",
-                "cultist_3": "cultist"
+                "Cultist 1": "cultist",
+                "Cultist 2": "cultist",
+                "Cultist 3": "small_cultist"
             }, 
             "combat_init_text": "Three cultists with bowed heads surround a center altar. The cultists turn to face you, their eyes glowing with an otherworldly light. They raise their hands, ready to attack!", 
             "searchable": [
