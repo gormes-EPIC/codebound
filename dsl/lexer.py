@@ -15,7 +15,7 @@ def tokenize(text):
 
         if w.isdigit():
             tokens.append(Token("NUMBER", float(w)))
-        elif w.lower() in ("report", "teleport", "ignite", "summon", "move", "draw"):
+        elif w.lower() in ("report", "teleport", "ignite", "summon", "move", "draw", "remember", "alert"):
             tokens.append(Token(w.upper(), w))
         else:
             tokens.append(Token("IDENT", w))

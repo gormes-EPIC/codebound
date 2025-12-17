@@ -134,7 +134,6 @@ class World:
         self.searchables = searchables
         self.rooms = rooms
         self.enemies = enemies
-        print(self.rooms["summoning_chamber"].enemies)
 
         self.start_room = data["start_room"]
         self.current_room = rooms[data["start_room"]]
@@ -150,6 +149,8 @@ class World:
         self.summons = None
 
         self.summoning_circle = None
+
+        self.remember = {}
 
 
     def teleport(self, location):
@@ -207,6 +208,9 @@ class World:
     def report(self):
         if self.summons.current_room == self.current_room:
             print("Report:\n" + self.summons.report)
+            print("Remember:")
+            for key in self.remember:
+                print(f"- {key}: {self.remember[key]}")
         else:
             print(f"Your summons is not here with you.")
             print("\nYou cannot read its report from here.")
@@ -221,6 +225,19 @@ class World:
             print(f"You drew a summoning circle in {room.name}")
 
 
+    def add_remember(self, name, value):
+        if (self.summons != None):
+            if value == "enemies_count":
+                value = len(self.summons.current_room.enemies)
+            elif value == "room_name":
+                value = self.summons.current_room.name
+            self.remember[name] = value
+        else:
+            print("You have no summons to remember information.")
+
+    
+    def alert(self):
+        print("Your summons alerted you!")
 
     def save(self):
         with open("world.json", "w") as f:

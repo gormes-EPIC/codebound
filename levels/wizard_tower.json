@@ -1,0 +1,192 @@
+{
+  "startup_text": "\nYou have been hired to explore the abandonned wizard tower and determine what happen to its inhabitants",
+  "start_room": "study",
+  "rooms": {
+    "study": {
+      "description": "A circular study. Shelves of books cover the walls. Plush chairs surround small tables with candles that light themselves as you approach. There is a spiral staircase to the south.",
+      "exits": {
+        "up": {
+          "room_id": "tower",
+          "flamable": true,
+          "unlocked": true
+        },
+        "down": {
+          "room_id": "dining_room",
+          "flamable": true,
+          "unlocked": true
+        }
+      },
+      "searchable": [
+        "bookshelf"
+      ]
+    },
+    "tower": {
+      "description": "This layer hou",
+      "exits": {
+        "up": {
+          "room_id": "observatory",
+          "flamable": true,
+          "unlocked": true
+        },
+        "down": {
+          "room_id": "study",
+          "flamable": true,
+          "unlocked": true
+        }
+      },
+      "searchable": []
+    },
+    "observatory": {
+      "description": "A dusty observatory. The glass circular roof is cracked down the middle, exposing the room to the elements. The wooden posts are rotting and the floor is wet with moss. A telescope stands tall in the center. Its gears have been rusted over with time.",
+      "exits": {
+        "down": {
+          "room_id": "tower",
+          "flamable": true,
+          "unlocked": true
+        }
+      },
+      "searchable": [
+      ]
+    },
+    "dining_room": {
+      "description": "A dining room. There are three large banquet tables with benches in the center of the room. In the south-east corner, a staircase spirals up and down. There is an opening to the north.",
+      "exits": {
+        "up": {
+          "room_id": "study",
+          "flamable": true,
+          "unlocked": true
+        },
+        "north": {
+          "room_id": "hallway_2",
+          "flamable": true,
+          "unlocked": true
+        }
+      },
+      "searchable": [
+      ]
+    },
+    "hallway_2": {
+      "description": "",
+      "exits": {
+        "up": {
+          "room_id": "study",
+          "flamable": true,
+          "unlocked": true
+        },
+        "north": {
+          "room_id": "hallway_2",
+          "flamable": true,
+          "unlocked": true
+        }
+      },
+      "searchable": [
+      ]
+    }
+  },
+  "searchable": {
+    "bookshelf": {
+      "items": [
+        "spellbook"
+      ]
+    }
+  },
+  "items": {
+    "sword": {
+      "display_name": "sword",
+      "description": "A small, sharp sword. Equip this item to boost your attack.",
+      "attack": 1,
+      "equipable": true
+    },
+    "breastplate": {
+      "display_name": "breastplate",
+      "description": "A old but sturdy metal breastplate. Equip this item to boost your defense.",
+      "defense": 1,
+      "equipable": true
+    },
+    "old_key": {
+      "display_name": "old key",
+      "description": "A small rusty key. Use this item to unlock a door.",
+      "unlock_door": "library"
+    },
+    "spellbook": {
+      "display_name": "spellbook",
+      "description": "A worn blank spellbook.",
+      "unlock_spellbook": true
+    },
+    "knife": {
+      "display_name": "knife",
+      "description": "A simple kitchen knife. Equip to boost your attack.",
+      "attack": 1,
+      "equipable": true
+    },
+    "healing_potion": {
+      "display_name": "healing potion",
+      "description": "A small red vial labeled healing potion. Equip to restore HP.",
+      "hp": 5,
+      "equipable": true
+    },
+    "sigil": {
+      "display_name": "parchment sigil",
+      "description": "A small sigil on a scrap of parchment. It seems to depict a doorway. When you hold it, see the outline of a hidden exit in the wine room apprear on the south wall. Use this item to reveal the hidden exit.",
+      "reveal_exit": "tunnel"
+    },
+    "lockpicking_kit": {
+      "display_name": "lockpicking kit",
+      "description": "A small lockpicking kit. Use this item to unlock locked doors without a key.",
+      "unlock_lockpicking": true
+    },
+    "diary": {
+      "display_name": "old diary",
+      "description": "A worn leather-bound diary. Its pages are yellowed with age. Lila's handwriting fills the pages, detailing her thoughts and experiences living in the Craic household. She writes about her parents' increasing stress over their financial troubles and hints at strange occurrences in the house. Her father spends long hours in his laboratory working on unknown experiments, locking the door tightly behind him."
+    },
+    "note": {
+      "display_name": "crumpled note",
+      "description": "A crumpled piece of paper describing a ritual involving three cultists and an altar.",
+      "key_item": true
+    },
+    "science_notes": {
+      "display_name": "science notes",
+      "description": "A set of notes detailing various experiments and observations. Equip to increase your wit.",
+      "wit": 2,
+      "equipable": true
+    },
+    "chess piece": {
+      "display_name": "chess piece",
+      "description": "An ornate chess piece carved from ivory. Equip to boost your wit.",
+      "wit": 1,
+      "equipable": true
+    },
+    "letter": {
+      "display_name": "sealed letter",
+      "description": "A sealed letter addressed to the Theodore Craic. It is from a creditor demanding repayment of a large debt.",
+      "key_item": true
+    },
+    "evil_plan": {
+      "display_name": "old parchment",
+      "description": "A crumpled piece of paper with an evil plan scribbled on it. It details the Theodore Craic's plan to summon a demon to solve their financial troubles.",
+      "key_item": true
+    },
+    "front_door_key": {
+      "display_name": "front door key",
+      "description": "An ornate key with intricate designs. Use this item to unlock the front door and escape the house.",
+      "end_condition": true
+    },
+    "plaque": {
+      "display_name": "family plaque",
+      "description": "A brass plaque mounted below the portrait. It lists the names Theodore, Margaret, and their two children, Lila and James.",
+      "key_item": true
+    },
+    "longsword": {
+      "display_name": "longsword",
+      "description": "A large sword.",
+      "attack": 2,
+      "equipable": true
+    },
+    "map_floor_1": {
+      "display_name": "first floor map",
+      "description": "A map of the first floor.",
+      "map": true,
+      "map_filepath": "./assets/haunted_house_floor_1.txt"
+    }
+  }
+}

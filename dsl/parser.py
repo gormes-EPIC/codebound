@@ -5,6 +5,8 @@ from dsl.ast_nodes import TeleportNode
 from dsl.ast_nodes import SummonNode
 from dsl.ast_nodes import MoveSummonsNode
 from dsl.ast_nodes import DrawSummoningCircleNode
+from dsl.ast_nodes import RememberNode
+from dsl.ast_nodes import AlertNode
 
 
 class Parser:
@@ -57,6 +59,16 @@ class Parser:
                 self.consume("DRAW")
                 circle = self.consume("IDENT").value
                 statements.append(DrawSummoningCircleNode())
+            
+            elif tok == "REMEMBER":
+                self.consume("REMEMBER")
+                name = self.consume("IDENT").value
+                value = self.consume("IDENT").value
+                statements.append(RememberNode(name, value))
+
+            elif tok == "ALERT":
+                self.consume("ALERT")
+                statements.append(AlertNode())
 
             else:
                 raise SyntaxError(f"Unexpected token: {tok}")

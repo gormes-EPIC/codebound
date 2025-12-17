@@ -39,6 +39,8 @@ import random
 # TODO: Implement different starting builds with different ststs
 # TODO: Figure out the whole combat system balance and item loading/saving. So we need to save and update the world... OR we need to remove saved items from inventory. How will this work with dropped items? Should we save items by level maybe?
 # TODO: Refactor enemies so they are in their own json
+# TODO: Implement small doors that only constructs can go through
+# TODO; Implement searching for room name
 
 def select_valid_level():
     '''
@@ -48,9 +50,10 @@ def select_valid_level():
     while True:
         print("Select a level")
         print("1) Haunted House")
+        print("2) Wizard's Tower")
         choice = input("Which level would you like to complete: ")
         
-        if choice in ("1"):
+        if choice in ("1", "2"):
             return int(choice)
 
 
@@ -75,6 +78,7 @@ def select_valid_action(world):
             valid.append("6")
 
         choice = input("Which action: ")
+        print("____________________________________")
             
         if choice in valid:
                 return int(choice)
@@ -138,7 +142,7 @@ def sneak(world):
     """
     print("\nStealth Initiated!")
 
-    for enemy in world.current_room.enemies:
+    while len(world.current_room.enemies) > 0:
         
         score = random.randint(0, world.player.stealth)
         if world.current_room.enemies[enemy].awareness > score:
@@ -429,7 +433,9 @@ start_script()
 level = select_valid_level()
 
 if level == 1:
-    world = World("world.json")
+    world = World("levels/haunted_house.json")
+elif level == 2:
+    world = World("levels/wizard_tower.json")
         
 world.run_startup()
 
@@ -443,8 +449,8 @@ try:
             break
 
         print("\n" +  world.current_room.description + "\n")
-        if world.summons != None:
-            print('\n' + world.summons.current_room.name + '\n')
+        # if world.summons != None:
+        #     print('\n' + world.summons.current_room.name + '\n')
 
         if world.current_room.enemies != {}:
             print(world.current_room.combat_init_text + "\n")
@@ -490,74 +496,75 @@ try:
                 item_list.append(world.player.equipped[item])
                 number += 1
 
-            print("\nA) Investigate an Item")
-            print("B) Equip an Item")
-            print("C) De-equip an Item")
+            if number != 1:
+                print("\nA) Investigate an Item")
+                print("B) Equip an Item")
+                print("C) De-equip an Item")
 
-            choice = input("Choose an option: ").upper().strip()
-            if choice == "A":
-                choice = input("Choose an item to search(by number as listed above): ")
-                try: 
-                    choice = int(choice) - 1
-                    if choice < 0 or choice >= len(item_list):
+                choice = input("Choose an option: ").upper().strip()
+                if choice == "A":
+                    choice = input("Choose an item to search(by number as listed above): ")
+                    try: 
+                        choice = int(choice) - 1
+                        if choice < 0 or choice >= len(item_list):
+                            print("\nInvalid item.\n")
+                            continue
+                        print("\n" + item_list[choice].description)
+                    except ValueError:
                         print("\nInvalid item.\n")
                         continue
-                    print("\n" + item_list[choice].description)
-                except ValueError:
-                    print("\nInvalid item.\n")
-                    continue
-            elif choice == "B":
-                if len(world.player.equipped) + 1 <= 5:
+                elif choice == "B":
+                    if len(world.player.equipped) + 1 <= 5:
 
+                        choice = input("Choose an item to equip(by number as listed above): ")
+                        try: 
+                            choice = int(choice) - 1
+                            if choice < 0 or choice >= len(item_list):
+                                print("\nInvalid item.\n")
+                                continue
+                            if item_list[choice].equipable == False:
+                                print("\nThat item cannot be equipped.\n")
+                                continue
+                            choice = item_list[choice].name
+                        except ValueError:
+                            print("\nInvalid item.\n")
+                            continue
+                        print(choice)
+                        if choice not in world.player.inventory:
+                            print("\nYou don't have that item in your inventory.\n")
+                            continue
+                        world.player.equipped[choice] = world.player.inventory[choice]
+                        del world.player.inventory[choice]
+                        world.player.attack += world.player.equipped[choice].attack
+                        world.player.defense += world.player.equipped[choice].defense
+                        world.player.stealth += world.player.equipped[choice].stealth
+                        world.player.wit += world.player.equipped[choice].wit
+                        print(f"\nYou have equipped {choice}.\n")
+                    else:
+                        print("You have too many items equiped.")
+                    
+                elif choice == "C":
                     choice = input("Choose an item to equip(by number as listed above): ")
                     try: 
                         choice = int(choice) - 1
                         if choice < 0 or choice >= len(item_list):
                             print("\nInvalid item.\n")
                             continue
-                        if item_list[choice].equipable == False:
-                            print("\nThat item cannot be equipped.\n")
-                            continue
                         choice = item_list[choice].name
                     except ValueError:
                         print("\nInvalid item.\n")
                         continue
-                    print(choice)
-                    if choice not in world.player.inventory:
-                        print("\nYou don't have that item in your inventory.\n")
+                    if choice not in world.player.equipped:
+                        print("\nYou don't have that item equipped.\n")
                         continue
-                    world.player.equipped[choice] = world.player.inventory[choice]
-                    del world.player.inventory[choice]
-                    world.player.attack += world.player.equipped[choice].attack
-                    world.player.defense += world.player.equipped[choice].defense
-                    world.player.stealth += world.player.equipped[choice].stealth
-                    world.player.wit += world.player.equipped[choice].wit
-                    print(f"\nYou have equipped {choice}.\n")
-                else:
-                    print("You have too many items equiped.")
+                    world.player.inventory[choice] = world.player.equipped[choice]
+                    world.player.attack -= world.player.equipped[choice].attack
+                    world.player.defense -= world.player.equipped[choice].defense
+                    world.player.stealth -= world.player.equipped[choice].stealth
+                    world.player.wit -= world.player.equipped[choice].wit
+                    del world.player.equipped[choice]
+                    print(f"\nYou have de-equipped {choice}.\n")
                 
-            elif choice == "C":
-                choice = input("Choose an item to equip(by number as listed above): ")
-                try: 
-                    choice = int(choice) - 1
-                    if choice < 0 or choice >= len(item_list):
-                        print("\nInvalid item.\n")
-                        continue
-                    choice = item_list[choice].name
-                except ValueError:
-                    print("\nInvalid item.\n")
-                    continue
-                if choice not in world.player.equipped:
-                    print("\nYou don't have that item equipped.\n")
-                    continue
-                world.player.inventory[choice] = world.player.equipped[choice]
-                world.player.attack -= world.player.equipped[choice].attack
-                world.player.defense -= world.player.equipped[choice].defense
-                world.player.stealth -= world.player.equipped[choice].stealth
-                world.player.wit -= world.player.equipped[choice].wit
-                del world.player.equipped[choice]
-                print(f"\nYou have de-equipped {choice}.\n")
-            
         elif action == 4:
             print(f"\nPlayer Stats for {world.player.name}:")
             print(f"HP: {world.player.hp}")
@@ -577,12 +584,13 @@ try:
             print("- Teleport [home/circle/location]")
             print("- Ignite [item/door] [target]")
             print("- Summon [bat/ghost/construct] - only one at a time")
-            print("- Move summons [direction]- summons cannot pass through locked doors")
-            print("- Report - summons can only report when they are in the same room as the player\n")
+            print("- Move [direction]- summons cannot pass through locked doors")
+            print("- Report - summons can only report when they are in the same room as the player")
             print("- Draw Circle - draws a summoning circle in this room. Teleport to your circle at any time")
+            print("- Remember \"name\" [room_name, enemies_count, etc.]")
             program = input("Input your program. Separate commands with \">\":")
+            print("____________________________________")
             program = program.replace(">", "\n")
-            print(program)
 
             tokens = tokenize(program)
             ast = Parser(tokens).parse()

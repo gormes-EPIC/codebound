@@ -17,7 +17,15 @@ class SummonNode:
 class MoveSummonsNode:
     def __init__(self, direction):
         self.location = direction
-        
+
+class RememberNode:
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
+
+class AlertNode:
+    pass
+
 class ReportNode:
     pass
 

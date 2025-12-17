@@ -1,10 +1,8 @@
 {
-  "name": "Player 1",
-  "hp": 6,
+  "name": "ethan",
+  "hp": 10,
   "unlocked": {
-    "spellbook": true,
-    "lockpicking": false,
-    "map": false
+    "spellbook": true
   },
   "inventory": {
     "old_key": {
@@ -22,7 +20,9 @@
       "flamable": false,
       "key_item": false,
       "end_condition": false,
-      "eqiupable": false
+      "eqiupable": false,
+      "map": false,
+      "map_filename": false
     },
     "spellbook": {
       "name": "spellbook",
@@ -39,64 +39,14 @@
       "flamable": false,
       "key_item": false,
       "end_condition": false,
-      "eqiupable": false
+      "eqiupable": false,
+      "map": false,
+      "map_filename": false
     }
   },
-  "equipped": {
-    "sword": {
-      "name": "sword",
-      "display_name": "sword",
-      "description": "A small, sharp sword. Equip this item to boost your attack.",
-      "attack": 1,
-      "defense": 0,
-      "stealth": 0,
-      "wit": 0,
-      "hp": 0,
-      "unlock_door": false,
-      "unlock_spellbook": false,
-      "reveal_exit": false,
-      "flamable": false,
-      "key_item": false,
-      "end_condition": false,
-      "eqiupable": false
-    },
-    "breastplate": {
-      "name": "breastplate",
-      "display_name": "breastplate",
-      "description": "A old but sturdy metal breastplate. Equip this item to boost your defense.",
-      "attack": 0,
-      "defense": 1,
-      "stealth": 0,
-      "wit": 0,
-      "hp": 0,
-      "unlock_door": false,
-      "unlock_spellbook": false,
-      "reveal_exit": false,
-      "flamable": false,
-      "key_item": false,
-      "end_condition": false,
-      "eqiupable": false
-    },
-    "longsword": {
-      "name": "longsword",
-      "display_name": "longsword",
-      "description": "A large sword.",
-      "attack": 2,
-      "defense": 0,
-      "stealth": 0,
-      "wit": 0,
-      "hp": 0,
-      "unlock_door": false,
-      "unlock_spellbook": false,
-      "reveal_exit": false,
-      "flamable": false,
-      "key_item": false,
-      "end_condition": false,
-      "eqiupable": true
-    }
-  },
-  "attack": 8,
-  "defense": 6,
+  "equipped": {},
+  "attack": 5,
+  "defense": 5,
   "stealth": 5,
   "wit": 5
 }
